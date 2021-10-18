@@ -20,13 +20,13 @@ const FirstScreen = ({ navigation }) => {
 
                 <Image style={styles.logo} source={require('./../assets/logo.png')} />
 
-                <Button style={styles.btn} onPress={() => console.log('Pressed')} mode="contained">
+                <Button style={styles.btn} onPress={() => navigation.navigate('StudentLogin')} mode="contained">
                     Continue As a Student
                 </Button>
-                <Button style={styles.btn} onPress={() => console.log('Pressed')} mode="contained">
+                <Button style={styles.btn} onPress={() => navigation.navigate('CompLogin')} mode="contained">
                     Continue As a Company
                 </Button>
-                <Button style={styles.btn} onPress={() => console.log('Pressed')} mode="contained">
+                <Button style={styles.btn} onPress={() => navigation.navigate('AdminLogin')} mode="contained">
                     Continue As an Admin
                 </Button>
 

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 
-const StudentLogin = () => {
+const StudentLogin = ({navigation}) => {
 
   return (
     <ScrollView style={{ padding: 40 }}>
@@ -38,7 +38,7 @@ const StudentLogin = () => {
         </View>
 
         <View style={styles.footer}>
-          <Text style={{textAlign:'center'}}>Don't have a account? Sinup</Text>
+          <Text style={{textAlign:'center',textDecorationLine: 'underline'}} onPress={()=>{ navigation.navigate('StudentSinup')}}>Don't have a account? Sinup</Text>
         </View>
 
       </View>
