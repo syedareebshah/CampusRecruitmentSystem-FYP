@@ -12,6 +12,8 @@ import StudentDetails from '../screens/StudentDetails';
 import CompDetails from '../screens/CompDetails';
 import StudentProfile from '../screens/StudentProfile';
 import CompProfile from '../screens/ComProfile';
+import Tab from '../screens/Tab';
+import Home from '../screens/Home';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +23,38 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+
+                <Stack.Screen name="Home" component={Home}
+                    options={{
+                        title: 'Home',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+                <Stack.Screen name="Tab" component={Tab}
+                    options={{
+                        title: 'Tab',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+
+
+
 
                 <Stack.Screen name="StudentProfile" component={StudentProfile}
                     options={{
