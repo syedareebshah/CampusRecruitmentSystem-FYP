@@ -8,6 +8,10 @@ import AdminLogin from '../screens/AdminLogin';
 import StudentSinup from '../screens/StudentSinup';
 import AdminSinup from '../screens/AdminSinup';
 import CompSinup from '../screens/CompSinup';
+import StudentDetails from '../screens/StudentDetails';
+import CompDetails from '../screens/CompDetails';
+import StudentProfile from '../screens/StudentProfile';
+import CompProfile from '../screens/ComProfile';
 
 
 const Stack = createNativeStackNavigator();
@@ -17,6 +21,64 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+
+                <Stack.Screen name="StudentProfile" component={StudentProfile}
+                    options={{
+                        title: 'Student Profile',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+                <Stack.Screen name="CompProfile" component={CompProfile}
+                    options={{
+                        title: 'Company Profile',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+
+
+                <Stack.Screen name="CompDetails" component={CompDetails}
+                    options={{
+                        title: 'Company Details',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+                <Stack.Screen name="StudentDetails" component={StudentDetails}
+                    options={{
+                        title: 'Student Details',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
 
                 <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
