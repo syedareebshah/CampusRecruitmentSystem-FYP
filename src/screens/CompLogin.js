@@ -31,14 +31,14 @@ const CompLogin = ({navigation}) => {
             label="Password"
             mode='outlined'
           />
-          <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
+          <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={()=>{ navigation.navigate('CompDetails')}}>
             Login
           </Button>
 
         </View>
 
         <View style={styles.footer}>
-        <Text style={{textAlign:'center',textDecorationLine: 'underline'}} onPress={()=>{ navigation.navigate('CompSinup')}}>Don't have a account? Sinup</Text>
+        <Text style={{textAlign:'center',textDecorationLine: 'underline'}} onPress={()=>{ navigation.navigate('CompSinup')}}>Don't have an account? Sinup</Text>
         </View>
       </View>
 

@@ -11,7 +11,7 @@ import {
     ScrollView
 } from 'react-native'
 
-const StudentDetails = () => {
+const StudentDetails = ({navigation}) => {
     const [checked, setChecked] = React.useState('first');
 
 
@@ -82,8 +82,8 @@ const StudentDetails = () => {
                     mode='outlined'
                 />
 
-                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
-                    Sinup
+                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={()=>{ navigation.navigate('Home')}}>
+                    Next
                 </Button>
 
             </View>

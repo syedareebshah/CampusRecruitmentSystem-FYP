@@ -6,11 +6,12 @@ import {
     ScrollView,
     TouchableOpacity,
 } from "react-native"
-import CompProfile from "./ComProfile";
+
+import Jobs from "./Jobs";
 import StudentProfile from "./StudentProfile";
 
 const Home = () => {
-    const [state, setState] = useState(true)
+    const [state, setState] = useState(false)
     useEffect(()=>{
         console.log(state)
     },[state])
@@ -27,13 +28,13 @@ const Home = () => {
                 <TouchableOpacity onPress={() => {
                     setState(false)
                 }}>
-                    <Text style={{ color: 'white' }}>Jobs</Text>
+                    <Text style={{ color: 'white', fontWeight:'bold' }}>Jobs</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     setState(true)
                 }}>
-    
-                    <Text style={{ color: 'white' }}>Profile</Text>
+
+                    <Text style={{ color: 'white', fontWeight:'bold',textDecorationLine:'underline' }}>Profile</Text>
                 </TouchableOpacity>
             </View>
             </View>
@@ -44,20 +45,20 @@ const Home = () => {
             <View style={styles.main}>
                 <View style={styles.upper}>
                     <ScrollView>
-                        <CompProfile />
+                        <Jobs />
                     </ScrollView>
                 </View>
                 <View style={styles.tab}>
                 <TouchableOpacity onPress={() => {
                     setState(false)
                 }}>
-                    <Text style={{ color: 'white' }}>Jobs</Text>
+                    <Text style={{ color: 'white',fontWeight:'bold',textDecorationLine:'underline' }}>Jobs</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     setState(true)
                 }}>
     
-                    <Text style={{ color: 'white' }}>Profile</Text>
+                    <Text style={{ color: 'white', fontWeight:'bold' }}>Profile</Text>
                 </TouchableOpacity>
             </View>
             </View>
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         backgroundColor: 'blue',
-        padding: 15,
+        padding: 25,
         width:'100%',
         position:'absolute',
         bottom:0

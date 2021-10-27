@@ -14,6 +14,7 @@ import StudentProfile from '../screens/StudentProfile';
 import CompProfile from '../screens/ComProfile';
 import Tab from '../screens/Tab';
 import Home from '../screens/Home';
+import Jobs from '../screens/Jobs';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,9 +25,9 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
 
-                <Stack.Screen name="Home" component={Home}
+                <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
-                        title: 'Home',
+                        title: 'Campus Recruitment System',
                         headerStyle: {
                             backgroundColor: '#3F51B5',
                         },
@@ -37,6 +38,36 @@ const Navigation = () => {
                         },
                     }}
                 />
+
+                <Stack.Screen name="Home" component={Home}
+                    options={{
+                        title: 'Campus Recruitment System',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+                <Stack.Screen name="Jobs" component={Jobs}
+                    options={{
+                        title: 'Campus Recruitment System',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+
 
                 <Stack.Screen name="Tab" component={Tab}
                     options={{
@@ -114,19 +145,7 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name="FirstScreen" component={FirstScreen}
-                    options={{
-                        title: 'Campus Recruitment System',
-                        headerStyle: {
-                            backgroundColor: '#3F51B5',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+
 
                 <Stack.Screen name="CompSinup" component={CompSinup}
                     options={{

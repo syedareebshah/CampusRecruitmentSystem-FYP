@@ -31,7 +31,7 @@ const StudentLogin = ({navigation}) => {
             label="Password"
             mode='outlined'
           />
-          <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
+          <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={()=>{ navigation.navigate('StudentDetails')}}>
             Login
           </Button>
 
