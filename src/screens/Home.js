@@ -10,6 +10,8 @@ import {
 import Jobs from "./Jobs";
 import StudentProfile from "./StudentProfile";
 
+
+
 const Home = () => {
     const [state, setState] = useState(false)
     useEffect(()=>{

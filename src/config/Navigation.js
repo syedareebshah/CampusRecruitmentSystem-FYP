@@ -15,15 +15,40 @@ import CompProfile from '../screens/ComProfile';
 import Tab from '../screens/Tab';
 import Home from '../screens/Home';
 import Jobs from '../screens/Jobs';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 
 const Stack = createNativeStackNavigator();
 
+// function run({navigation}){
+//     navigation.navigate('StudentProfile')
+//     console.log("hahah");
+// }
+
 const Navigation = () => {
+
 
     return (
         <NavigationContainer>
             <Stack.Navigator>
+
+                <Stack.Screen name="Home" component={Home}
+                    options={({ navigation }) => ({
+                        headerRight: () => (
+                            <TouchableOpacity onPress={() => { navigation.navigate('StudentProfile'); }}><Icon style={{ color: 'white' }} name="account-circle" size={40} /></TouchableOpacity>
+                        ),
+                        title: 'Campus Recruitment System',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                        headerTintColor: '#fff',
+
+                    })}
+                />
 
                 <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
@@ -39,19 +64,7 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name="Home" component={Home}
-                    options={{
-                        title: 'Campus Recruitment System',
-                        headerStyle: {
-                            backgroundColor: '#3F51B5',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+
 
                 <Stack.Screen name="Jobs" component={Jobs}
                     options={{
