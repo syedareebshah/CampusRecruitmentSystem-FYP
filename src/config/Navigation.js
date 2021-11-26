@@ -34,6 +34,20 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
 
+            <Stack.Screen name="StudentLogin" component={StudentLogin}
+                    options={{
+                        title: 'Student Login',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
                 <Stack.Screen name="Home" component={Home}
                     options={({ navigation }) => ({
                         headerRight: () => (
@@ -230,19 +244,7 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name="StudentLogin" component={StudentLogin}
-                    options={{
-                        title: 'Student Login',
-                        headerStyle: {
-                            backgroundColor: '#3F51B5',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+                
 
 
 
