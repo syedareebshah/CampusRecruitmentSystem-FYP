@@ -34,6 +34,20 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
 
+            <Stack.Screen name="FirstScreen" component={FirstScreen}
+                    options={{
+                        title: 'Campus Recruitment System',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
             <Stack.Screen name="StudentLogin" component={StudentLogin}
                     options={{
                         title: 'Student Login',
@@ -64,19 +78,7 @@ const Navigation = () => {
                     })}
                 />
 
-                <Stack.Screen name="FirstScreen" component={FirstScreen}
-                    options={{
-                        title: 'Campus Recruitment System',
-                        headerStyle: {
-                            backgroundColor: '#3F51B5',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+                
 
 
 
