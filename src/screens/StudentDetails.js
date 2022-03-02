@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 import {
     TextInput,
     Button,
@@ -8,16 +10,37 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView
+    ScrollView,
 } from 'react-native'
 
-const StudentDetails = ({navigation}) => {
-    const [checked, setChecked] = React.useState('first');
+const StudentDetails = ({ navigation }) => {
+    const [checked, setChecked] = useState('first');
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+        console.log("A date has been picked: ", date);
+        hideDatePicker();
+    };
 
 
     return (
         <ScrollView>
             <View style={styles.main}>
+
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
                 <TextInput style={styles.txtfield}
                     label="Name"
                     mode='outlined'
@@ -26,10 +49,14 @@ const StudentDetails = ({navigation}) => {
                     label="Father Name"
                     mode='outlined'
                 />
-                <TextInput style={styles.txtfield}
-                    label="yhn canlender lagana hy"
+                {/* <TextInput style={styles.txtfield}
+                    label="Date of Birth"
                     mode='outlined'
-                />
+                /> */}
+                <Button style={{ marginTop: 20, padding: 5 }} mode='outlined' onPress={showDatePicker} >
+                    Date of Birth
+                </Button>
+
                 <TextInput style={styles.txtfield}
                     label="Contact"
                     mode='outlined'
@@ -40,7 +67,7 @@ const StudentDetails = ({navigation}) => {
                 />
 
                 <View style={styles.gander}>
-                    <Text style={{marginTop:9}}>Gander</Text>
+                    <Text style={{ marginTop: 9 }}>Gander</Text>
                     <View style={styles.male}>
                         <RadioButton
                             title="thisss"
@@ -48,7 +75,7 @@ const StudentDetails = ({navigation}) => {
                             status={checked === 'first' ? 'checked' : 'unchecked'}
                             onPress={() => setChecked('first')}
                         />
-                        <Text style={{marginTop:9}}>
+                        <Text style={{ marginTop: 9 }}>
                             Male
                         </Text>
                     </View>
@@ -58,7 +85,7 @@ const StudentDetails = ({navigation}) => {
                             status={checked === 'second' ? 'checked' : 'unchecked'}
                             onPress={() => setChecked('second')}
                         />
-                        <Text style={{marginTop:9}}>
+                        <Text style={{ marginTop: 9 }}>
                             Female
                         </Text>
                     </View>
@@ -66,8 +93,8 @@ const StudentDetails = ({navigation}) => {
                 <TextInput style={styles.txtfield}
                     label="Skills"
                     mode='outlined'
-                    multiline = {true}
-                    numberOfLines = {5}
+                    multiline={true}
+                    numberOfLines={5}
                 />
                 <TextInput style={styles.txtfield}
                     label="CGPA"
@@ -82,7 +109,7 @@ const StudentDetails = ({navigation}) => {
                     mode='outlined'
                 />
 
-                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={()=>{ navigation.navigate('Home')}}>
+                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('Home') }}>
                     Next
                 </Button>
 
@@ -104,11 +131,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    gander:{
+    gander: {
         marginTop: 20,
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'space-around'
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
 
     }
 

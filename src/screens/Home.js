@@ -6,6 +6,7 @@ import {
     ScrollView,
     TouchableOpacity,
 } from "react-native"
+import AppliedJob from "./AppliedJobs";
 
 import Jobs from "./Jobs";
 import StudentProfile from "./StudentProfile";
@@ -23,7 +24,7 @@ const Home = () => {
             <View style={styles.main}>
                 <View style={styles.upper}>
                     <ScrollView>
-                        <StudentProfile />
+                        <AppliedJob />
                     </ScrollView>
                 </View>
                 <View style={styles.tab}>
@@ -36,7 +37,7 @@ const Home = () => {
                     setState(true)
                 }}>
 
-                    <Text style={{ color: 'white', fontWeight:'bold',textDecorationLine:'underline' }}>Profile</Text>
+                    <Text style={{ color: 'white', fontWeight:'bold',textDecorationLine:'underline' }}>Applied Jobs</Text>
                 </TouchableOpacity>
             </View>
             </View>
@@ -51,16 +52,18 @@ const Home = () => {
                     </ScrollView>
                 </View>
                 <View style={styles.tab}>
+
                 <TouchableOpacity onPress={() => {
                     setState(false)
                 }}>
                     <Text style={{ color: 'white',fontWeight:'bold',textDecorationLine:'underline' }}>Jobs</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => {
                     setState(true)
                 }}>
     
-                    <Text style={{ color: 'white', fontWeight:'bold' }}>Profile</Text>
+                    <Text style={{ color: 'white', fontWeight:'bold' }}>Applied Jobs</Text>
                 </TouchableOpacity>
             </View>
             </View>
