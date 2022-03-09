@@ -15,6 +15,7 @@ import CompProfile from '../screens/ComProfile';
 import Tab from '../screens/Tab';
 import Home from '../screens/Home';
 import Jobs from '../screens/Jobs';
+import PostJob from '../screens/PostJob';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -47,6 +48,22 @@ const Navigation = () => {
                         },
                     }}
                 />
+            
+            <Stack.Screen name="PostJob" component={PostJob}
+                    options={{
+                        title: 'Post a Job',
+                        headerStyle: {
+                            backgroundColor: '#3F51B5',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+            
+
 
             <Stack.Screen name="StudentLogin" component={StudentLogin}
                     options={{

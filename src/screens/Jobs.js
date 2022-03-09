@@ -1,30 +1,90 @@
 import React from "react";
 import {
     StyleSheet,
+    Image,
     View,
     Text,
+    ScrollView,
 } from "react-native"
 
 const Jobs = () => {
-    
-        return (
-            <View >
-                <Text style={styles.main}>JOBS</Text>
+
+    return (
+        <ScrollView>
+            <View style={styles.card}>
+                <View>
+                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                </View>
+                <View>
+                    <Text>Job Title</Text>
+                    <Text>Comp Name</Text>
+                    <Text>Location(Remote)</Text>
+                </View>
             </View>
-        )
-    }
-    
+            <View style={styles.card}>
+                <View>
+                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                </View>
+                <View>
+                    <Text>Job Title</Text>
+                    <Text>Comp Name</Text>
+                    <Text>Location(Remote)</Text>
+                </View>
+            </View>
+            <View style={styles.card}>
+                <View>
+                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                </View>
+                <View>
+                    <Text>Job Title</Text>
+                    <Text>Comp Name</Text>
+                    <Text>Location(Remote)</Text>
+                </View>
+            </View> 
+            <View style={styles.card}>
+                <View>
+                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                </View>
+                <View>
+                    <Text>Job Title</Text>
+                    <Text>Comp Name</Text>
+                    <Text>Location(Remote)</Text>
+                </View>
+            </View>     
+        </ScrollView>
+    )
+}
+
 
 
 const styles = StyleSheet.create({
-    main: {
-        marginTop:'70%',
-        justifyContent:'center',
-        alignItems:'center',
-        textAlign:'center',
-        fontSize:24
+    card: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: 5,
+        marginBottom: 5,
+        marginRight: 10,
+        marginLeft: 10,
+        padding: 10,
+        fontSize: 24,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+
+        elevation: 10,
+        backgroundColor: 'white'
+    },
+    logo: {
+        // marginBottom: 40,
+        alignSelf: 'flex-start',
+        resizeMode: 'contain',
+        height: 65,
+        width: 65,
     }
-    
-})
+    })
 
 export default Jobs

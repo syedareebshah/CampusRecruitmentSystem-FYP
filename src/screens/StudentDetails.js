@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 import {
     TextInput,
@@ -17,6 +19,18 @@ const StudentDetails = ({ navigation }) => {
     const [checked, setChecked] = useState('first');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
+    const ValidationSchema = yup.object().shape({
+        name: yup.string().required(),
+        fname: yup.string().required("father name is a required field"),
+        Contact:yup.number().required().min(13).max(13),
+        Email: yup.string().email().required(),
+        Cgpa: yup.number().required(),
+        password: yup.string()
+            .required('No password provided.')
+            .min(8, 'Password is too short - should be 8 chars minimum.')
+            .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/, 'Password must contain atleast one uppercase, one lowercase, one number and one special character.')
+    });
+
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
@@ -32,89 +46,132 @@ const StudentDetails = ({ navigation }) => {
 
 
     return (
-        <ScrollView>
-            <View style={styles.main}>
+        <Formik
+            initialValues={{ name: '', fname: '', Contact: '', Email: '', skills: '', Cgpa: '', degree: '' }}
+            onSubmit={values => console.log(values)}
+            validationSchema={ValidationSchema}
+        >
+            {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
+                <ScrollView>
+                    <View style={styles.main}>
 
-                <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                />
-                <TextInput style={styles.txtfield}
-                    label="Name"
-                    mode='outlined'
-                />
-                <TextInput style={styles.txtfield}
-                    label="Father Name"
-                    mode='outlined'
-                />
-                {/* <TextInput style={styles.txtfield}
+
+                        <TextInput style={styles.txtfield}
+                            label="Name"
+                            mode='outlined'
+                            onChangeText={handleChange('name')}
+                            onBlur={handleBlur('name')}
+                            value={values.name}
+                        />
+                        {(errors.name && touched.name) &&
+                            <Text style={styles.err}>{errors.name}</Text>
+                        }
+                        <TextInput style={styles.txtfield}
+                            label="Father Name"
+                            mode='outlined'
+                            onChangeText={handleChange('fname')}
+                            onBlur={handleBlur('fname')}
+                            value={values.fname}
+                        />
+                        {(errors.fname && touched.fname) &&
+                            <Text style={styles.err}>{errors.fname}</Text>
+                        }
+                        {/* <TextInput style={styles.txtfield}
                     label="Date of Birth"
                     mode='outlined'
                 /> */}
-                <Button style={{ marginTop: 20, padding: 5 }} mode='outlined' onPress={showDatePicker} >
-                    Date of Birth
-                </Button>
-
-                <TextInput style={styles.txtfield}
-                    label="Contact"
-                    mode='outlined'
-                />
-                <TextInput style={styles.txtfield}
-                    label="Email"
-                    mode='outlined'
-                />
-
-                <View style={styles.gander}>
-                    <Text style={{ marginTop: 9 }}>Gander</Text>
-                    <View style={styles.male}>
-                        <RadioButton
-                            title="thisss"
-                            value="first"
-                            status={checked === 'first' ? 'checked' : 'unchecked'}
-                            onPress={() => setChecked('first')}
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
                         />
-                        <Text style={{ marginTop: 9 }}>
-                            Male
-                        </Text>
-                    </View>
-                    <View style={styles.male}>
-                        <RadioButton
-                            value="second"
-                            status={checked === 'second' ? 'checked' : 'unchecked'}
-                            onPress={() => setChecked('second')}
+
+                        <Button style={{ marginTop: 20, padding: 5 }} mode='outlined' onPress={showDatePicker} >
+                            Date of Birth
+                        </Button>
+
+                        <TextInput style={styles.txtfield}
+                            label="Contact"
+                            placeholder="+923000000000"
+                            mode='outlined'
+                            onChangeText={handleChange('Contact')}
+                            onBlur={handleBlur('Contact')}
+                            value={values.Contact}
                         />
-                        <Text style={{ marginTop: 9 }}>
-                            Female
-                        </Text>
+                        {(errors.Contact && touched.Contact) &&
+                            <Text style={styles.err}>{errors.Contact}</Text>
+                        }
+                        <TextInput style={styles.txtfield}
+                            label="Email"
+                            mode='outlined'
+                            onChangeText={handleChange('Email')}
+                            onBlur={handleBlur('Email')}
+                            value={values.Email}
+                        />
+                        {(errors.Email && touched.Email) &&
+                            <Text style={styles.err}>{errors.Email}</Text>
+                        }
+
+                        <View style={styles.gander}>
+                            <Text style={{ marginTop: 9 }}>Gander</Text>
+                            <View style={styles.male}>
+                                <RadioButton
+                                    title="thisss"
+                                    value="first"
+                                    status={checked === 'first' ? 'checked' : 'unchecked'}
+                                    onPress={() => setChecked('first')}
+                                />
+                                <Text style={{ marginTop: 9 }}>
+                                    Male
+                                </Text>
+                            </View>
+                            <View style={styles.male}>
+                                <RadioButton
+                                    value="second"
+                                    status={checked === 'second' ? 'checked' : 'unchecked'}
+                                    onPress={() => setChecked('second')}
+                                />
+                                <Text style={{ marginTop: 9 }}>
+                                    Female
+                                </Text>
+                            </View>
+                        </View>
+                        <TextInput style={styles.txtfield}
+                            label="Skills"
+                            mode='outlined'
+                            multiline={true}
+                            numberOfLines={5}
+                        />
+                        <TextInput style={styles.txtfield}
+                            label="CGPA"
+                            mode='outlined'
+                            keyboardType="decimal-pad"
+                            maxLength={4}
+                            onChangeText={handleChange('Cgpa')}
+                            onBlur={handleBlur('Cgpa')}
+                            value={values.Cgpa}
+                        />
+                        {(errors.Cgpa && touched.Cgpa) &&
+                            <Text style={styles.err}>{errors.Cgpa}</Text>
+                        }
+                        <TextInput style={styles.txtfield}
+                            label="Degree"
+                            mode='outlined'
+                        />
+                        <TextInput style={styles.txtfield}
+                            label="CV"
+                            mode='outlined'
+                        />
+
+                        <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('Home') }}>
+                            Next
+                        </Button>
+
                     </View>
-                </View>
-                <TextInput style={styles.txtfield}
-                    label="Skills"
-                    mode='outlined'
-                    multiline={true}
-                    numberOfLines={5}
-                />
-                <TextInput style={styles.txtfield}
-                    label="CGPA"
-                    mode='outlined'
-                />
-                <TextInput style={styles.txtfield}
-                    label="Degree"
-                    mode='outlined'
-                />
-                <TextInput style={styles.txtfield}
-                    label="CV"
-                    mode='outlined'
-                />
-
-                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('Home') }}>
-                    Next
-                </Button>
-
-            </View>
-        </ScrollView>
+                </ScrollView>
+            )}
+        </Formik>
     )
 }
 
@@ -136,8 +193,12 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around'
-
-    }
+    },
+    err: {
+        fontSize: 14,
+        color: 'red',
+        marginTop: 4
+      }
 
 
 });

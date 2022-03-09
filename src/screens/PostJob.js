@@ -11,7 +11,7 @@ import {
     ScrollView
 } from 'react-native'
 
-const CompDetails = ({ navigation }) => {
+const PostJob = () => {
     const [checked, setChecked] = React.useState('first');
 
 
@@ -19,7 +19,7 @@ const CompDetails = ({ navigation }) => {
         <ScrollView>
             <View style={styles.main}>
                 <TextInput style={styles.txtfield}
-                    label="Name"
+                    label="Name....."
                     mode='outlined'
                 />
                 <TextInput style={styles.txtfield}
@@ -46,7 +46,7 @@ const CompDetails = ({ navigation }) => {
 
                 
 
-                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() =>navigation.navigate('PostJob')}>
+                <Button style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
                     submit
                 </Button>
 
@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    gander: {
+    gander:{
         marginTop: 20,
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-around'
 
     }
 
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default CompDetails
+export default PostJob
