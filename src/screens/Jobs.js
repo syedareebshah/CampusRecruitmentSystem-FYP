@@ -15,42 +15,12 @@ const Jobs = () => {
                 <View>
                     <Image style={styles.logo} source={require('./../assets/logo.png')} />
                 </View>
-                <View>
+                <View style={styles.info}>
                     <Text>Job Title</Text>
                     <Text>Comp Name</Text>
                     <Text>Location(Remote)</Text>
                 </View>
             </View>
-            <View style={styles.card}>
-                <View>
-                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
-                </View>
-                <View>
-                    <Text>Job Title</Text>
-                    <Text>Comp Name</Text>
-                    <Text>Location(Remote)</Text>
-                </View>
-            </View>
-            <View style={styles.card}>
-                <View>
-                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
-                </View>
-                <View>
-                    <Text>Job Title</Text>
-                    <Text>Comp Name</Text>
-                    <Text>Location(Remote)</Text>
-                </View>
-            </View> 
-            <View style={styles.card}>
-                <View>
-                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
-                </View>
-                <View>
-                    <Text>Job Title</Text>
-                    <Text>Comp Name</Text>
-                    <Text>Location(Remote)</Text>
-                </View>
-            </View>     
         </ScrollView>
     )
 }
@@ -58,7 +28,11 @@ const Jobs = () => {
 
 
 const styles = StyleSheet.create({
+    info: {
+        marginLeft: 8
+    },
     card: {
+        borderRadius: 7,
         display: 'flex',
         flexDirection: 'row',
         marginTop: 5,
@@ -85,6 +59,6 @@ const styles = StyleSheet.create({
         height: 65,
         width: 65,
     }
-    })
+})
 
 export default Jobs

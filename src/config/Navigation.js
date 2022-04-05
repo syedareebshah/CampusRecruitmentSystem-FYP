@@ -23,10 +23,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createNativeStackNavigator();
 
-// function run({navigation}){
-//     navigation.navigate('StudentProfile')
-//     console.log("hahah");
-// }
+
 
 const Navigation = () => {
 
@@ -34,26 +31,42 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+            <Stack.Screen name="StudentDetails" component={StudentDetails}
+                    options={{
+                        title: 'Student Details',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+                
 
-            <Stack.Screen name="FirstScreen" component={FirstScreen}
+                <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
                             fontWeight: 'bold',
-                            alignSelf: 'center'
+                            alignSelf: 'center',
                         },
                     }}
                 />
-            
-            <Stack.Screen name="PostJob" component={PostJob}
+                
+               
+
+                <Stack.Screen name="PostJob" component={PostJob}
                     options={{
-                        title: 'Post a Job',
+                        title: 'Post Job',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -62,14 +75,14 @@ const Navigation = () => {
                         },
                     }}
                 />
-            
 
 
-            <Stack.Screen name="StudentLogin" component={StudentLogin}
+
+                <Stack.Screen name="StudentLogin" component={StudentLogin}
                     options={{
                         title: 'Student Login',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -84,9 +97,9 @@ const Navigation = () => {
                         headerRight: () => (
                             <TouchableOpacity onPress={() => { navigation.navigate('StudentProfile'); }}><Icon style={{ color: 'white' }} name="account-circle" size={40} /></TouchableOpacity>
                         ),
-                        title: 'Campus Recruitment System',
+                        title: 'C R S',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                             fontWeight: 'bold',
                             alignSelf: 'center'
                         },
@@ -95,7 +108,7 @@ const Navigation = () => {
                     })}
                 />
 
-                
+
 
 
 
@@ -103,7 +116,7 @@ const Navigation = () => {
                     options={{
                         title: 'Campus Recruitment System',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -119,7 +132,7 @@ const Navigation = () => {
                     options={{
                         title: 'Tab',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -137,7 +150,7 @@ const Navigation = () => {
                     options={{
                         title: 'Student Profile',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -151,7 +164,7 @@ const Navigation = () => {
                     options={{
                         title: 'Company Profile',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -167,7 +180,7 @@ const Navigation = () => {
                     options={{
                         title: 'Company Details',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -177,19 +190,7 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name="StudentDetails" component={StudentDetails}
-                    options={{
-                        title: 'Student Details',
-                        headerStyle: {
-                            backgroundColor: '#3F51B5',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+
 
 
 
@@ -197,7 +198,7 @@ const Navigation = () => {
                     options={{
                         title: 'Company Sinup',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -211,7 +212,7 @@ const Navigation = () => {
                     options={{
                         title: 'Admin Sinup',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -225,7 +226,7 @@ const Navigation = () => {
                     options={{
                         title: 'Student Sinup',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -239,7 +240,7 @@ const Navigation = () => {
                     options={{
                         title: 'Admin Login',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -253,7 +254,7 @@ const Navigation = () => {
                     options={{
                         title: 'Company Login',
                         headerStyle: {
-                            backgroundColor: '#3F51B5',
+                            backgroundColor: '#6200ED',
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
@@ -263,7 +264,7 @@ const Navigation = () => {
                     }}
                 />
 
-                
+
 
 
 
