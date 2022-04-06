@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Select, CheckIcon, FormControl, WarningOutlineIcon, ErrorMessage } from "native-base";
+import { Select, CheckIcon } from "native-base";
 
 import {
     TextInput,
@@ -70,7 +70,7 @@ const StudentDetails = ({ navigation }) => {
 
     return (
         <Formik
-            initialValues={{ name: '', DOB: '', fname: '', Contact: '', Email: '', skills: '', Cgpa: '', degree: ''}}
+            initialValues={{ name: '', DOB: '', fname: '', Contact: '', Email: '', skills: '', Cgpa: '', degree: '' }}
             onSubmit={values => console.log(values)}
             validationSchema={ValidationSchema}
         >
@@ -143,7 +143,7 @@ const StudentDetails = ({ navigation }) => {
                             <Text style={{ marginTop: 9 }}>Gander</Text>
                             <View style={styles.male}>
                                 <RadioButton
-                                    
+
                                     title="thisss"
                                     value="first"
                                     status={checked === 'first' ? 'checked' : 'unchecked'}
@@ -155,7 +155,7 @@ const StudentDetails = ({ navigation }) => {
                             </View>
                             <View style={styles.male}>
                                 <RadioButton
-                                    
+
                                     value="second"
                                     status={checked === 'second' ? 'checked' : 'unchecked'}
                                     onPress={() => setChecked('female')}
@@ -214,6 +214,7 @@ const StudentDetails = ({ navigation }) => {
                         />
 
                         <Button
+                            disabled={!isValid}
                             style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('Home') }}>
                             Next
                         </Button>

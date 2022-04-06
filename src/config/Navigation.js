@@ -31,7 +31,7 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-            <Stack.Screen name="StudentDetails" component={StudentDetails}
+                <Stack.Screen name="StudentDetails" component={StudentDetails}
                     options={{
                         title: 'Student Details',
                         headerStyle: {
@@ -44,8 +44,6 @@ const Navigation = () => {
                         },
                     }}
                 />
-                
-
                 <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
@@ -59,8 +57,19 @@ const Navigation = () => {
                         },
                     }}
                 />
-                
-               
+                <Stack.Screen name="StudentLogin" component={StudentLogin}
+                    options={{
+                        title: 'Student Login',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
 
                 <Stack.Screen name="PostJob" component={PostJob}
                     options={{
@@ -78,19 +87,7 @@ const Navigation = () => {
 
 
 
-                <Stack.Screen name="StudentLogin" component={StudentLogin}
-                    options={{
-                        title: 'Student Login',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+
 
                 <Stack.Screen name="Home" component={Home}
                     options={({ navigation }) => ({

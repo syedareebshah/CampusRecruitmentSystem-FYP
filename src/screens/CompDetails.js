@@ -22,7 +22,7 @@ const CompDetails = ({ navigation }) => {
         About: yup.string().required(),
         Address: yup.string().required(),
         Field: yup.string().required(),
-        Contact: yup.number().required().min(13).max(13),
+        Contact: yup.number().required(),
     });
 
 
