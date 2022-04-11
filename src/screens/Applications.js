@@ -8,18 +8,17 @@ import {
     TouchableOpacity
 } from "react-native"
 
-const Jobs = ({props}) => {
+const Applications = ({props}) => {
 
     return (
         <ScrollView>
-            <TouchableOpacity onPress={() => { props.navigate('JobApply') }} activeOpacity={0.8} style={styles.card}>
+            <TouchableOpacity onPress={() => { props.navigate('StudentProfile') }} activeOpacity={0.8} style={styles.card}>
                 <View>
                     <Image style={styles.logo} source={require('./../assets/logo.png')} />
                 </View>
                 <View style={styles.info}>
-                    <Text>Job Title</Text>
-                    <Text>Comp Name</Text>
-                    <Text>Location(Remote)</Text>
+                    <Text>Applicant Name</Text>
+                    <Text>Description</Text>
                 </View>
             </TouchableOpacity>
         </ScrollView>
@@ -30,7 +29,8 @@ const Jobs = ({props}) => {
 
 const styles = StyleSheet.create({
     info: {
-        marginLeft: 8
+        marginLeft: 8,
+        marginTop:10
     },
     card: {
         borderRadius: 7,
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Jobs
+export default Applications

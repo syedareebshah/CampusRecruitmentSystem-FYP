@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from "react-native"
 
-const Jobs = ({props}) => {
+const CompJobs = ({props}) => {
 
     return (
         <ScrollView>
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Jobs
+export default CompJobs

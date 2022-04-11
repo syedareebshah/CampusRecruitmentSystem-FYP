@@ -68,9 +68,7 @@ const StudentSinup = ({ navigation }) => {
                 style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('StudentDetails') }}>
                 Login
               </Button>
-
             </View>
-
             <View style={styles.footer}>
               <Text style={{ textAlign: 'center', textDecorationLine: 'underline' }} onPress={() => { navigation.navigate('StudentLogin') }}>Login instead</Text>
             </View>

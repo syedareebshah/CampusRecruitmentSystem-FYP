@@ -6,38 +6,40 @@ import {
     ScrollView,
     TouchableOpacity,
 } from "react-native"
+import Applications from "./Applications";
 import AppliedJob from "./AppliedJobs";
+import CompJobs from "./CompJobs";
 
 import Jobs from "./Jobs";
 import StudentProfile from "./StudentProfile";
 
 
 
-const Home = ({ navigation }) => {
+const CompHome = ({ navigation }) => {
     const [state, setState] = useState(false)
-    useEffect(() => {
+    
         console.log(state)
-    }, [state])
+    
 
     if (state == true) {
         return (
             <View style={styles.main}>
                 <View style={styles.upper}>
                     <ScrollView>
-                        <AppliedJob props={navigation} />
+                        <CompJobs props={navigation} />
                     </ScrollView>
                 </View>
                 <View style={styles.tab}>
                     <TouchableOpacity onPress={() => {
                         setState(false)
                     }}>
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Jobs</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Applications</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setState(true)
                     }}>
 
-                        <Text style={{ color: 'white', fontWeight: 'bold', textDecorationLine: 'underline' }}>Applied Jobs</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold', textDecorationLine: 'underline' }}>Posted Jobs</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -48,7 +50,7 @@ const Home = ({ navigation }) => {
             <View style={styles.main}>
                 <View style={styles.upper}>
                     <ScrollView>
-                        <Jobs props={navigation} />
+                         <Applications props={navigation} />
                     </ScrollView>
                 </View>
                 <View style={styles.tab}>
@@ -56,14 +58,14 @@ const Home = ({ navigation }) => {
                     <TouchableOpacity onPress={() => {
                         setState(false)
                     }}>
-                        <Text style={{ color: 'white', fontWeight: 'bold', textDecorationLine: 'underline' }}>Jobs</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold', textDecorationLine: 'underline' }}>Applications</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => {
                         setState(true)
                     }}>
 
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Applied Jobs</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Posted Jobs</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -91,4 +93,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Home
+export default CompHome

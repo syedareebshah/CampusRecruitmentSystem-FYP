@@ -100,7 +100,7 @@ const CompDetails = ({ navigation }) => {
                         }
                         <Button
                             disabled={!isValid}
-                            style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => navigation.navigate('PostJob')}>
+                            style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => navigation.navigate('CompHome')}>
                             submit
                         </Button>
 

@@ -15,6 +15,7 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native'
+import FilePick from './FilePick';
 
 const StudentDetails = ({ navigation }) => {
     const [checked, setChecked] = useState('first');
@@ -206,6 +207,9 @@ const StudentDetails = ({ navigation }) => {
                             <Select.Item label="MS" value="MS" />
 
                         </Select>
+
+
+                        <FilePick />
 
 
                         <TextInput style={styles.txtfield}

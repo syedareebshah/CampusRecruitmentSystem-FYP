@@ -25,7 +25,7 @@ const CompProfile = ({ navigation }) => {
                         <Text>Netsol</Text>
                     </View>
 
-                    <View style={styles.items} style={{ flexDirection: 'column' }}>
+                    <View style={styles.items}>
                         <Text style={styles.label}>Address</Text>
                         <Text>NETSOL Avenue، Main Ghazi Rd, Khuda Buksh Colony, Lahore, Punjab 54792</Text>
                     </View>
@@ -49,6 +49,10 @@ const CompProfile = ({ navigation }) => {
                         <Text style={styles.label}>Contact</Text>
                         <Text>042 123456</Text>
                     </View>
+
+                    <Button mode="contained" onPress={() =>navigation.navigate('PostJob')}>
+                        Post A Job
+                    </Button>
 
                     <Button mode="contained" onPress={() => console.log('Pressed')}>
                         Update Profile
