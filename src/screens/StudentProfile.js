@@ -7,6 +7,7 @@ import {
     Text,
     View,
     ScrollView,
+    TouchableOpacity
 } from 'react-native';
 
 
@@ -17,7 +18,11 @@ const StudentProfile = ({ navigation }) => {
             <View style={{ padding: 40 }}>
 
                 <View style={styles.firstView}>
-                    <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
+                        <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
+                    <TouchableOpacity>
+                        <Text style={{textAlign:'center',marginTop:-20,color:'blue'}}>Upload/Change Picture</Text>
+                    </TouchableOpacity>
+
                 </View>
                 <View style={styles.ScndView}>
                     <View style={styles.items}>
@@ -103,6 +108,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 150,
         width: 150,
+        borderRadius: 500
     },
     label: {
         fontWeight: 'bold',

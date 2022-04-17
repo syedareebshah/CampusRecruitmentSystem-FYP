@@ -4,10 +4,11 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Select, CheckIcon } from "native-base";
 
+
 import {
     TextInput,
     Button,
-    RadioButton,
+    RadioButton
 } from 'react-native-paper';
 import {
     View,
@@ -18,35 +19,21 @@ import {
 import FilePick from './FilePick';
 
 const StudentDetails = ({ navigation }) => {
-    const [checked, setChecked] = useState('first');
+    const [checked, setChecked] = useState('Male');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     let [service, setService] = useState("");
     let [degree, setDegree] = useState("");
-    let [isok, setok] = useState();
+    let [isok, setok] = useState('DD/MM/YY');
+    let [pickerError, setPickerError] = useState(false)
 
     console.log(checked);
-
-
-    function xyz(date) {
-        setok(isok + 1)
-        console.log("hahaha", isok)
-        if (!date) {
-            console.log("gagag")
-        }
-        else (
-            date
-        )
-    }
-
-
-
 
 
 
     const ValidationSchema = yup.object().shape({
         name: yup.string().required(),
         fname: yup.string().required("father name is a required field"),
-        Contact: yup.number().required().min(13).max(13),
+        Contact: yup.number().required(),
         Email: yup.string().email().required(),
         Cgpa: yup.number().required(),
     });
@@ -67,17 +54,35 @@ const StudentDetails = ({ navigation }) => {
 
     const DOB = JSON.stringify(isok)
 
+    function CustomValidation() {
 
+        if (!isok) {
+            console.log("empty")
+        }
+        else {
+            console.log("hah", isok);
+        }
+    }
+
+    const hello = (values) => {
+        values.Dob = isok
+        values.gander = checked
+        console.log(values)
+    }
 
     return (
         <Formik
-            initialValues={{ name: '', DOB: '', fname: '', Contact: '', Email: '', skills: '', Cgpa: '', degree: '' }}
-            onSubmit={values => console.log(values)}
+            initialValues={{ name: '', Dob: '', gander: '', fname: '', Contact: '', Email: '', skills: '', Cgpa: '', degree: '' }}
+            onSubmit={values =>
+                hello(values)
+            }
             validationSchema={ValidationSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
                 <ScrollView>
                     <View style={styles.main}>
+
+
 
                         <TextInput style={styles.txtfield}
                             label="Name"
@@ -100,12 +105,8 @@ const StudentDetails = ({ navigation }) => {
                             <Text style={styles.err}>{errors.fname}</Text>
                         }
 
-                        <Text
-                            style={styles.dob}>{DOB}
-                        </Text>
-                        {(errors.DOB && touched.DOB) &&
-                            <Text style={styles.err}>{errors.DOB}</Text>
-                        }
+
+
 
                         <DateTimePickerModal
                             isVisible={isDatePickerVisible}
@@ -113,10 +114,15 @@ const StudentDetails = ({ navigation }) => {
                             onConfirm={handleConfirm}
                             onCancel={hideDatePicker}
                         />
+                        <Text
+                            style={styles.dob}>{DOB}
+                        </Text>
 
-                        <Button style={{ marginTop: 20, padding: 5 }} mode='outlined' onPress={showDatePicker} >
+                        <Button style={{ marginTop: 20, padding: 5, borderColor: 'gray', borderWidth: 1 }} mode='outlined' onPress={showDatePicker} >
                             Date of Birth
                         </Button>
+                        {pickerError && <Text style={{ color: "red" }}>please choose DOB</Text>}
+
 
                         <TextInput style={styles.txtfield}
                             label="Contact"
@@ -144,11 +150,11 @@ const StudentDetails = ({ navigation }) => {
                             <Text style={{ marginTop: 9 }}>Gander</Text>
                             <View style={styles.male}>
                                 <RadioButton
-
-                                    title="thisss"
-                                    value="first"
-                                    status={checked === 'first' ? 'checked' : 'unchecked'}
-                                    onPress={() => setChecked('male')}
+                                    uncheckedicon='circle-o'
+                                    value={values.gander}
+                                    status={checked === 'Male' ? 'checked' : 'unchecked'} //condition me first nhi 'male' ay ga
+                                    color='blue'
+                                    onPress={() => setChecked("Male")}
                                 />
                                 <Text style={{ marginTop: 9 }}>
                                     Male
@@ -156,9 +162,12 @@ const StudentDetails = ({ navigation }) => {
                             </View>
                             <View style={styles.male}>
                                 <RadioButton
-
-                                    value="second"
-                                    status={checked === 'second' ? 'checked' : 'unchecked'}
+                                    value={values.gander}
+                                    checked='female'
+                                    CheckIcon='dot-circle-o'
+                                    uncheckedicon='circle-o'
+                                    color='blue'
+                                    status={checked === 'female' ? 'checked' : 'unchecked'} 
                                     onPress={() => setChecked('female')}
                                 />
                                 <Text style={{ marginTop: 9 }}>
@@ -195,7 +204,6 @@ const StudentDetails = ({ navigation }) => {
                         }} mt={1} onValueChange={itemValue => setService(itemValue)}>
                             <Select.Item label="BS" value="BS" />
                             <Select.Item label="MS" value="MS" />
-
                         </Select>
 
 
@@ -209,17 +217,24 @@ const StudentDetails = ({ navigation }) => {
                         </Select>
 
 
-                        <FilePick />
-
-
-                        <TextInput style={styles.txtfield}
-                            label="CV"
-                            mode='outlined'
-                        />
-
                         <Button
                             disabled={!isValid}
-                            style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('Home') }}>
+                            style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => {
+                                handleSubmit()
+                                if (isok === "DD/MM/YY" || isok === undefined || isok === null) {
+                                    // alert("please Enter Date")
+                                    setPickerError(true);
+                                    setTimeout(() => {
+                                        setPickerError(false);
+                                    }, 5000)
+                                }
+                                
+                                else {
+
+                                    navigation.navigate('Resume')
+                                }
+                            }
+                            }>
                             Next
                         </Button>
 
@@ -232,6 +247,7 @@ const StudentDetails = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+
     txtfield: {
         marginTop: 20,
     },
@@ -256,9 +272,14 @@ const styles = StyleSheet.create({
         marginTop: 4
     },
     dob: {
+        padding: 10,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 3,
         fontSize: 20,
         marginTop: 20,
         textAlign: 'center',
+
     }
 
 

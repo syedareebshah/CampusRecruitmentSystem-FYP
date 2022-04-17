@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 
+
+
 const CompProfile = ({ navigation }) => {
 
     return (
@@ -50,7 +52,7 @@ const CompProfile = ({ navigation }) => {
                         <Text>042 123456</Text>
                     </View>
 
-                    <Button mode="contained" onPress={() =>navigation.navigate('PostJob')}>
+                    <Button mode="contained" onPress={() => navigation.navigate('PostJob')}>
                         Post A Job
                     </Button>
 
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginRight: 40,
         marginBottom: 5,
-        marginTop: 5
+        marginTop: 5,
     },
 
 });
