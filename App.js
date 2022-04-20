@@ -1,7 +1,8 @@
 import React from 'react';
 import Navigation from './src/config/Navigation';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { NativeBaseProvider} from "native-base";
+import { NativeBaseProvider } from "native-base";
+
 
 
 

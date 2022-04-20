@@ -37,21 +37,6 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
 
-
-            <Stack.Screen name="StudentProfile" component={StudentProfile}
-                    options={{
-                        title: 'Student Profile',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
-                
                 <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
@@ -65,6 +50,23 @@ const Navigation = () => {
                         },
                     }}
                 />
+
+
+                <Stack.Screen name="StudentProfile" component={StudentProfile}
+                    options={{
+                        title: 'Student Profile',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+
                 <Stack.Screen name="Resume" component={FilePick}
                     options={{
                         title: 'Campus Recruitment System',
@@ -275,7 +277,7 @@ const Navigation = () => {
 
 
 
-              
+
 
 
 

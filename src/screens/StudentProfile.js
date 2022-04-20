@@ -9,6 +9,7 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
+import Dp from './Dp';
 
 
 const StudentProfile = ({ navigation }) => {
@@ -18,10 +19,11 @@ const StudentProfile = ({ navigation }) => {
             <View style={{ padding: 40 }}>
 
                 <View style={styles.firstView}>
-                        <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
+                        {/* <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
                     <TouchableOpacity>
                         <Text style={{textAlign:'center',marginTop:-20,color:'blue'}}>Upload/Change Picture</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <Dp />
 
                 </View>
                 <View style={styles.ScndView}>
