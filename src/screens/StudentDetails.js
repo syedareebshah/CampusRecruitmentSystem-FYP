@@ -15,18 +15,22 @@ import {
     Text,
     StyleSheet,
     ScrollView,
+    Alert,
 } from 'react-native'
 import FilePick from './FilePick';
 
 const StudentDetails = ({ navigation }) => {
+    const [degrees, setDegrees] = useState(["Computer Science", "Physics"])
     const [checked, setChecked] = useState('Male');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    let [service, setService] = useState("");
+    let [level, setlevel] = useState("");
     let [degree, setDegree] = useState("");
     let [isok, setok] = useState('DD/MM/YY');
     let [pickerError, setPickerError] = useState(false)
 
     console.log(checked);
+    console.log(degree, level);
+
 
 
 
@@ -167,7 +171,7 @@ const StudentDetails = ({ navigation }) => {
                                     CheckIcon='dot-circle-o'
                                     uncheckedicon='circle-o'
                                     color='blue'
-                                    status={checked === 'female' ? 'checked' : 'unchecked'} 
+                                    status={checked === 'female' ? 'checked' : 'unchecked'}
                                     onPress={() => setChecked('female')}
                                 />
                                 <Text style={{ marginTop: 9 }}>
@@ -197,24 +201,31 @@ const StudentDetails = ({ navigation }) => {
                         {(errors.Cgpa && touched.Cgpa) &&
                             <Text style={styles.err}>{errors.Cgpa}</Text>
                         }
+                        <View style={styles.education}>
+                            <Select selectedValue={level} minWidth="200" accessibilityLabel="Choose Level" placeholder="Choose Level" _selectedItem={{
+                                bg: "teal.600",
+                                endIcon: <CheckIcon size="5" />
+                            }} mt={1} onValueChange={itemValue => setlevel(itemValue)}>
+                                <Select.Item label="BS" value="BS" />
+                                <Select.Item label="MS" value="MS" />
+                                <Select.Item label="PhD" value="PhD" />
+                            </Select>
 
-                        <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Level" placeholder="Choose Level" _selectedItem={{
-                            bg: "teal.600",
-                            endIcon: <CheckIcon size="5" />
-                        }} mt={1} onValueChange={itemValue => setService(itemValue)}>
-                            <Select.Item label="BS" value="BS" />
-                            <Select.Item label="MS" value="MS" />
-                        </Select>
 
-
-                        <Select selectedValue={degree} minWidth="200" accessibilityLabel="Choose Level" placeholder="Choose Degree" _selectedItem={{
-                            bg: "teal.600",
-                            endIcon: <CheckIcon size="5" />
-                        }} mt={1} onValueChange={itemValue => setDegree(itemValue)}>
-                            <Select.Item label="BS" value="BS" />
-                            <Select.Item label="MS" value="MS" />
-
-                        </Select>
+                            <Select selectedValue={degree} minWidth="200" accessibilityLabel="Choose Level" placeholder="Choose Degree" _selectedItem={{
+                                bg: "teal.600",
+                                endIcon: <CheckIcon size="5" />
+                            }} mt={1} onValueChange={itemValue => setDegree(itemValue)}>
+                                {
+                                    degrees.map((obj, id) => {
+                                        return (
+                                            <Select.Item key={id} label={obj} value={obj} />
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </View>
+                        {degree ==="" || level ==="" && <Text>This is null</Text>}
 
 
                         <Button
@@ -228,9 +239,11 @@ const StudentDetails = ({ navigation }) => {
                                         setPickerError(false);
                                     }, 5000)
                                 }
-                                
-                                else {
+                                else if(degree === '' || level === ''){
+                                    Alert.alert("Degree Of Level is Empty")
+                                }
 
+                                else {
                                     navigation.navigate('Resume')
                                 }
                             }
@@ -247,7 +260,13 @@ const StudentDetails = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-
+    education: {
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginTop: 20,
+        padding: 20
+    },
     txtfield: {
         marginTop: 20,
     },

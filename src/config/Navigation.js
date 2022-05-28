@@ -36,8 +36,7 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-
-                <Stack.Screen name="FirstScreen" component={FirstScreen}
+            <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
                         headerStyle: {
@@ -51,6 +50,19 @@ const Navigation = () => {
                     }}
                 />
 
+                <Stack.Screen name="CompDetails" component={CompDetails}
+                    options={{
+                        title: 'Company Details',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
 
                 <Stack.Screen name="StudentProfile" component={StudentProfile}
                     options={{
@@ -272,31 +284,6 @@ const Navigation = () => {
                         },
                     }}
                 />
-
-
-
-
-
-
-
-
-
-                <Stack.Screen name="CompDetails" component={CompDetails}
-                    options={{
-                        title: 'Company Details',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
-
-
-
 
 
                 <Stack.Screen name="CompSinup" component={CompSinup}

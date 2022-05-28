@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-native-paper';
 
 import {
@@ -9,21 +9,80 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-import Dp from './Dp';
+
+import {
+    launchCamera,
+    launchImageLibrary
+} from 'react-native-image-picker';
 
 
 const StudentProfile = ({ navigation }) => {
+    const [filePath, setFilePath] = useState();
+
+    const chooseFile = (type) => {
+        let options = {
+            mediaType: type,
+            maxWidth: 300,
+            maxHeight: 550,
+            quality: 1,
+        };
+        launchImageLibrary(options, (response) => {
+            console.log(response.assets[0].uri);
+
+            if (response.didCancel) {
+                alert('User cancelled camera picker');
+                return;
+            } else if (response.errorCode == 'camera_unavailable') {
+                alert('Camera not available on device');
+                return;
+            } else if (response.errorCode == 'permission') {
+                alert('Permission not satisfied');
+                return;
+            } else if (response.errorCode == 'others') {
+                alert(response.errorMessage);
+                return;
+            }
+            console.log('base64 -> ', response.base64);
+            console.log('uri -> ', response.uri);
+            console.log('width -> ', response.width);
+            console.log('height -> ', response.height);
+            console.log('fileSize -> ', response.fileSize);
+            console.log('type -> ', response.type);
+            console.log('fileName -> ', response.fileName);
+            setFilePath(response.assets[0].uri);
+        });
+    };
 
     return (
         <ScrollView>
             <View style={{ padding: 40 }}>
 
                 <View style={styles.firstView}>
-                        {/* <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
+                    {/* <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
                     <TouchableOpacity>
                         <Text style={{textAlign:'center',marginTop:-20,color:'blue'}}>Upload/Change Picture</Text>
                     </TouchableOpacity> */}
-                    <Dp />
+
+                    {!filePath &&
+                        <Image
+                            source={require('../assets/profile.jpg')}
+                            style={styles.imageStyle}
+                        />
+                    }
+                    {
+                        filePath &&
+                        <Image
+                            source={{ uri: `${filePath}` }}
+                            style={styles.imageStyle}
+                        />
+                    }
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.buttonStyle}
+                        onPress={() => chooseFile('photo')}>
+                        <Text style={styles.textStyle}>Upload/Change Picture</Text>
+                    </TouchableOpacity>
+
 
                 </View>
                 <View style={styles.ScndView}>
@@ -88,6 +147,14 @@ const StudentProfile = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    imageStyle: {
+        marginBottom: 40,
+        alignSelf: 'center',
+        resizeMode: 'cover',
+        height: 150,
+        width: 150,
+        borderRadius: 500
+    },
     firstView: {
         marginTop: 20,
         padding: 20,
@@ -117,6 +184,10 @@ const styles = StyleSheet.create({
         marginRight: 40,
         marginBottom: 5,
         marginTop: 5
+    },
+    textStyle: {
+        color: 'blue',
+        textAlign: 'center',
     },
 
 });

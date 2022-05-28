@@ -17,9 +17,21 @@ import StudentProfile from "./StudentProfile";
 
 const CompHome = ({ navigation }) => {
     const [state, setState] = useState(false)
-    
-        console.log(state)
-    
+
+    console.log(state)
+
+    const fetchJobs = async () => {
+        try {
+            let res = await fetch(`https://crs-fyp.herokuapp.com/getJob`);
+            let success = await res.json()
+            console.log(success)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    fetchJobs()
+
 
     if (state == true) {
         return (
@@ -50,7 +62,7 @@ const CompHome = ({ navigation }) => {
             <View style={styles.main}>
                 <View style={styles.upper}>
                     <ScrollView>
-                         <Applications props={navigation} />
+                        <Applications props={navigation} />
                     </ScrollView>
                 </View>
                 <View style={styles.tab}>
