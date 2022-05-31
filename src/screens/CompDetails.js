@@ -191,11 +191,11 @@ const CompDetails = ({ navigation }) => {
                         <Button
                             disabled={!isValid}
                             style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => {
-                                handleSubmit()
                                 if (filePath === "" || filePath === undefined || filePath === null) {
                                     alert("Fill all the details")
                                 }
                                 else{
+                                handleSubmit()
                                 navigation.navigate('CompHome')
                                 }
                             }}>

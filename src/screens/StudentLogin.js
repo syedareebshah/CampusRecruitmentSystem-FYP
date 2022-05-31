@@ -27,7 +27,9 @@ const StudentLogin = ({ navigation }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      onSubmit={values => console.log(values)}
+      onSubmit={(values) => {
+        
+      }}
       validationSchema={ValidationSchema}
     >
       {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
@@ -63,7 +65,7 @@ const StudentLogin = ({ navigation }) => {
               }
               <Button
                 disabled={!isValid}
-                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('StudentDetails') }}>
+                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={handleSubmit}>
                 Login
               </Button>
 

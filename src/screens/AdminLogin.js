@@ -63,7 +63,7 @@ const AdminLogin = ({ navigation }) => {
               }
               <Button
                 disabled={!isValid}
-                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { console.log("admin logged in") }}>
+                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('TabNav') }}>
                 Login
               </Button>
 
