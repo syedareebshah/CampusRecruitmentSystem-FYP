@@ -36,7 +36,24 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-            <Stack.Screen name="FirstScreen" component={FirstScreen}
+
+                <Stack.Screen name="Home" component={Home}
+                    options={({ navigation }) => ({
+                        headerRight: () => (
+                            <TouchableOpacity onPress={() => { navigation.navigate('StudentProfile'); }}><Icon style={{ color: 'white' }} name="account-circle" size={40} /></TouchableOpacity>
+                        ),
+                        title: 'C R S',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                        headerTintColor: '#fff',
+
+                    })}
+                />
+
+                <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
                         headerStyle: {
@@ -49,6 +66,38 @@ const Navigation = () => {
                         },
                     }}
                 />
+
+                <Stack.Screen name="PostJob" component={PostJob}
+                    options={{
+                        title: 'Post Job',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+
+
+
+
+                <Stack.Screen name="Resume" component={FilePick}
+                    options={{
+                        title: 'Campus Recruitment System',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center',
+                        },
+                    }}
+                />
+
 
                 <Stack.Screen name="CompDetails" component={CompDetails}
                     options={{
@@ -79,19 +128,7 @@ const Navigation = () => {
                 />
 
 
-                <Stack.Screen name="Resume" component={FilePick}
-                    options={{
-                        title: 'Campus Recruitment System',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center',
-                        },
-                    }}
-                />
+
 
                 <Stack.Screen name="JobApply" component={JobApply}
                     options={{
@@ -237,39 +274,13 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name="PostJob" component={PostJob}
-                    options={{
-                        title: 'Post Job',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
 
 
 
 
 
-                <Stack.Screen name="Home" component={Home}
-                    options={({ navigation }) => ({
-                        headerRight: () => (
-                            <TouchableOpacity onPress={() => { navigation.navigate('StudentProfile'); }}><Icon style={{ color: 'white' }} name="account-circle" size={40} /></TouchableOpacity>
-                        ),
-                        title: 'C R S',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                        headerTintColor: '#fff',
 
-                    })}
-                />
+
 
                 <Stack.Screen name="Tab" component={Tab}
                     options={{

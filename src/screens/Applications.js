@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import firestore from '@react-native-firebase/firestore';
 import {
     StyleSheet,
     Image,
@@ -9,6 +10,8 @@ import {
 } from "react-native"
 
 const Applications = ({props}) => {
+
+    
 
     return (
         <ScrollView>

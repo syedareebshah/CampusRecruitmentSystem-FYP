@@ -8,7 +8,8 @@ import {
     Button,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome/';
-
+import { utils } from '@react-native-firebase/app';
+import storage from '@react-native-firebase/storage';
 
 import {
     SafeAreaView,
@@ -27,8 +28,23 @@ import DocumentPicker from 'react-native-document-picker';
 const FilePick = ({ navigation }) => {
     const [singleFile, setSingleFile] = useState('');
     const [fname, setFname] = useState();
+    const reference = storage().ref('docs');
 
-    console.log(singleFile,"....");
+    // console.log(singleFile[0].uri,"....");
+    const handleUpload = async () => {
+        // pathToFile = singleFile[0].uri
+        // console.log("file",singleFile[0].uri);
+        // await reference.putFile(singleFile[0].uri);
+        // console.log("file uploaded");
+        try{
+            await reference.putFile(singleFile[0].uri);
+            console.log(".................");
+        }
+        catch(e){
+            console.log(e);
+        }
+
+    }
 
     const selectOneFile = async () => {
         //Opening Document Picker for selection of one file
@@ -72,7 +88,7 @@ const FilePick = ({ navigation }) => {
                         style={styles.buttonStyle}
                         onPress={selectOneFile}>
                         {/*Single file selection button*/}
-                        <Text style={{ marginRight: 10, fontSize: 19, color:'blue' }}>
+                        <Text style={{ marginRight: 10, fontSize: 19, color: 'blue' }}>
                             Upload CV/Resume
                         </Text>
                         <Image
@@ -85,20 +101,21 @@ const FilePick = ({ navigation }) => {
                     <View>
                         <Text>*{fname} </Text>
                     </View>
-                    <Button style={{ marginTop: 20, padding: 5}} mode='contained'
-                    onPress={()=>{
-                        if (singleFile === "" || singleFile === undefined || singleFile === null) {
-                            Alert.alert("Please Select CV/Resume")
-                        }
-                        
-                        else {
+                    <Button style={{ marginTop: 20, padding: 5 }} mode='contained'
+                        onPress={() => {
+                            if (singleFile === "" || singleFile === undefined || singleFile === null) {
+                                Alert.alert("Please Select CV/Resume")
+                            }
 
-                            navigation.navigate('Home')
-                        }
-                    }}
+                            else {
+                                handleUpload()
+                                // navigation.navigate('Home')
+                            }
+                        }}
                     >
                         Next
                     </Button>
+
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -108,10 +125,10 @@ const FilePick = ({ navigation }) => {
 export default FilePick;
 
 const styles = StyleSheet.create({
-    icons:{
+    icons: {
         color: 'blue',
-        alignSelf:'center',
-        marginBottom:25
+        alignSelf: 'center',
+        marginBottom: 25
     },
     container: {
         flex: 1,
@@ -124,9 +141,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         // backgroundColor: '#639958',
-        borderWidth:1,
-        borderColor:'blue',
-        color:'blue',
+        borderWidth: 1,
+        borderColor: 'blue',
+        color: 'blue',
         padding: 8,
         borderRadius: 5
     },

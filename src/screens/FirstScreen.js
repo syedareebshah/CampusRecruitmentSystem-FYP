@@ -12,10 +12,9 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
-
 const FirstScreen = ({ navigation }) => {
     
-
+   
     return (
         <ScrollView>
             <View style={styles.main}>

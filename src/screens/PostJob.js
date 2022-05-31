@@ -3,6 +3,7 @@ import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Select, CheckIcon } from "native-base";
+import firestore from '@react-native-firebase/firestore';
 
 import {
     View,
@@ -22,13 +23,26 @@ const PostJob = ({ navigation }) => {
         Description: yup.string().required(),
         Title: yup.string().required(),
     });
+    const uId = new Date().getTime().toString()
 
 
 
     return (
         <Formik
-            initialValues={{ Description: '', Title: ''}}
-            onSubmit={values => console.log(values)}
+            initialValues={{ Description: '', Title: '' }}
+            onSubmit={(values) => { 
+                firestore()
+                    .collection('Jobs')
+                    .add({
+                        title: values.Title,
+                        uId: uId,
+                        jobType: jType,
+                        Workplace:Workplace
+                    })
+                    .then(() => {
+                        alert("Job Posted")
+                    });
+             }}
             validationSchema={ValidationSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
@@ -63,8 +77,9 @@ const PostJob = ({ navigation }) => {
                             bg: "teal.600",
                             endIcon: <CheckIcon size="5" />
                         }} mt={1} onValueChange={itemValue => setWorkplace(itemValue)}>
-                            <Select.Item label="BS" value="BS" />
-                            <Select.Item label="MS" value="MS" />
+                            <Select.Item label="Full Time" value="Full Time" />
+                            <Select.Item label="Remote" value="remote" />
+                            <Select.Item label="Hybrid" value="Hybrid" />
 
                         </Select>
 
@@ -72,13 +87,10 @@ const PostJob = ({ navigation }) => {
                             bg: "teal.600",
                             endIcon: <CheckIcon size="5" />
                         }} mt={1} onValueChange={itemValue => setjType(itemValue)}>
-                            <Select.Item label="BS" value="BS" />
-                            <Select.Item label="MS" value="MS" />
-
+                            <Select.Item label="Job" value="Job" />
+                            <Select.Item label="internship" value="internship" />
                         </Select>
-
-
-                        <Button
+                        <Button onPress={handleSubmit}
                             disabled={!isValid}
                             style={{ marginTop: 20, padding: 10 }} mode="contained" >
                             Post

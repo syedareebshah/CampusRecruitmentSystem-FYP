@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
+import firestore from '@react-native-firebase/firestore'
 import Icon from 'react-native-vector-icons/Entypo/';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-paper';
@@ -13,12 +14,30 @@ import {
 } from 'react-native';
 
 
-const JobApply = ({ navigation }) => {
+const JobApply = ({ route,navigation }) => {
+    const {id} = route.params
+    let [results, setResult] = useState([])
+    console.log(results);
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () =>{
+        firestore()
+            .collection('Jobs')
+            // Filter results
+            .where('uId', '==', `${id}`)
+            .get()
+            .then(querySnapshot => {
+               let result= querySnapshot.docs[0]._data
+               setResult(result)     
+            });
+    }
     return (
         <ScrollView>
             <View style={styles.main}>
                 <View style={styles.headingBox}>
-                    <Text style={styles.heading}>React Developer</Text>
+                    <Text style={styles.heading}>{results.title}</Text>
                 </View>
                 <View>
                     <View style={styles.container}>
@@ -44,12 +63,9 @@ const JobApply = ({ navigation }) => {
                 <View style={styles.containerBtn}>
                     <Button
                         style={{ marginTop: 20, padding: 10 }} mode="contained" >
-                        Login
+                        Apply
                     </Button>
-                    <Button
-                        style={{ marginTop: 20, padding: 10 }} mode="contained" >
-                        Save
-                    </Button>
+                   
                 </View>
                 <TouchableOpacity style={styles.container}>
                     <Icon style={styles.icons} name="flag" size={30} />
@@ -109,7 +125,9 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        alignSelf:'center',
+        marginTop:5
     },
     icons: {
         color: 'brown'

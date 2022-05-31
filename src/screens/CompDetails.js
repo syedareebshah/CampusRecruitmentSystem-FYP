@@ -19,6 +19,8 @@ import {
     launchCamera,
     launchImageLibrary
 } from 'react-native-image-picker';
+import firestore from '@react-native-firebase/firestore';
+
 
 
 const CompDetails = ({ navigation }) => {
@@ -76,11 +78,27 @@ const CompDetails = ({ navigation }) => {
         Contact: yup.number().required(),
     });
 
+    const uId = new Date().getTime().toString()
 
     return (
         <Formik
             initialValues={{ Name: '', email: '', Address: '', Field: '', About: '', Contact: '' }}
-            onSubmit={values => console.log(values)}
+            onSubmit={(values) => {
+                firestore()
+                    .collection('Company')
+                    .add({
+                        name: values.Name,
+                        email:values.email,
+                        address: values.Address,
+                        field: values.Field,
+                        about: values.About,
+                        contact: values.Contact,
+                        uId: uId
+                    })
+                    .then(() => {
+                        alert("Company Added")
+                    });
+            }}
             validationSchema={ValidationSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
