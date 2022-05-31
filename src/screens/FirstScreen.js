@@ -10,9 +10,11 @@ import {
     TouchableOpacity,
     ScrollView,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 
 
 const FirstScreen = ({ navigation }) => {
+    
 
     return (
         <ScrollView>

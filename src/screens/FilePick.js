@@ -28,7 +28,7 @@ const FilePick = ({ navigation }) => {
     const [singleFile, setSingleFile] = useState('');
     const [fname, setFname] = useState();
 
-    console.log(singleFile);
+    console.log(singleFile,"....");
 
     const selectOneFile = async () => {
         //Opening Document Picker for selection of one file
@@ -89,11 +89,6 @@ const FilePick = ({ navigation }) => {
                     onPress={()=>{
                         if (singleFile === "" || singleFile === undefined || singleFile === null) {
                             Alert.alert("Please Select CV/Resume")
-                            // setPickerError(true);
-                            // setTimeout(() => {
-                            //     setPickerError(false);
-                            // }, 5000)
-
                         }
                         
                         else {

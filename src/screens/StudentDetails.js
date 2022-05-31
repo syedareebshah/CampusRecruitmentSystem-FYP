@@ -3,7 +3,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Select, CheckIcon } from "native-base";
-
+import firestore from '@react-native-firebase/firestore';
 
 import {
     TextInput,
@@ -24,6 +24,7 @@ const StudentDetails = ({ navigation }) => {
     const [checked, setChecked] = useState('Male');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     let [level, setlevel] = useState("");
+    let [skills, setSkills] = useState("");
     let [degree, setDegree] = useState("");
     let [isok, setok] = useState('DD/MM/YY');
     let [pickerError, setPickerError] = useState(false)
@@ -68,17 +69,41 @@ const StudentDetails = ({ navigation }) => {
         }
     }
 
-    const hello = (values) => {
-        values.Dob = isok
-        values.gander = checked
-        console.log(values)
-    }
+
+    // const tempFun = (values) => {
+    //     values.Dob = isok
+    //     values.gander = checked
+    // }
 
     return (
         <Formik
-            initialValues={{ name: '', Dob: '', gander: '', fname: '', Contact: '', Email: '', skills: '', Cgpa: '', degree: '' }}
-            onSubmit={values =>
-                hello(values)
+            initialValues={{ name: '', Dob: '', gander: '', fname: '', Contact: '', Email: '', Cgpa: '', degree: '' }}
+            onSubmit={(values) => {
+                values.Dob = isok
+                values.gander = checked
+                const uId = new Date().getTime().toString()
+
+
+                firestore()
+                    .collection('Students')
+                    .add({
+                        name: values.name,
+                        Dob: values.Dob,
+                        fname: values.fname,
+                        contact: values.Contact,
+                        email: values.Email,
+                        skill: skills,
+                        cgps: values.Cgpa,
+                        degree: degree,
+                        gander: values.gander,
+                        level: level,
+                        uId: uId
+                    })
+                    .then(() => {
+                        alert("Student Added")
+                    });
+            }
+
             }
             validationSchema={ValidationSchema}
         >
@@ -188,6 +213,11 @@ const StudentDetails = ({ navigation }) => {
                             mode='outlined'
                             multiline={true}
                             numberOfLines={5}
+                            value={skills}
+                            onChangeText={(val)=>{setSkills(val)}}
+
+
+
                         />
                         <TextInput style={styles.txtfield}
                             label="CGPA"
@@ -225,7 +255,7 @@ const StudentDetails = ({ navigation }) => {
                                 }
                             </Select>
                         </View>
-                        {degree ==="" || level ==="" && <Text>This is null</Text>}
+                        {degree === "" || level === "" && <Text>This is null</Text>}
 
 
                         <Button
@@ -239,7 +269,7 @@ const StudentDetails = ({ navigation }) => {
                                         setPickerError(false);
                                     }, 5000)
                                 }
-                                else if(degree === '' || level === ''){
+                                else if (degree === '' || level === '') {
                                     Alert.alert("Degree Of Level is Empty")
                                 }
 

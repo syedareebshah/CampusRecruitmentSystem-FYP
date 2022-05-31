@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "146497504582",
+    "project_id": "crs-fyp",
+    "storage_bucket": "crs-fyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146497504582:android:8f7a7105ffc97069641147",
+        "android_client_info": {
+          "package_name": "com.campusrecruitmentsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146497504582-pbb26t8i1hc1taah0h8c40mj948o026h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDChMnIWKCHcGSrpzpv5i_o2ntlwTP_wE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146497504582-pbb26t8i1hc1taah0h8c40mj948o026h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
