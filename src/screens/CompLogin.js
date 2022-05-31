@@ -2,6 +2,8 @@ import React from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux'
+import { AdminFlag, CompFlag, StudFlag } from '../redux/loginSlice';
 
 import {
   StyleSheet,
@@ -13,6 +15,7 @@ import {
 
 
 const CompLogin = ({ navigation }) => {
+  const dispatch = useDispatch()
 
   const ValidationSchema = yup.object().shape({
     email: yup.string().email().required("Enter a valid email address"),
@@ -63,7 +66,12 @@ const CompLogin = ({ navigation }) => {
               }
               <Button
                 disabled={!isValid}
-                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('CompDetails') }}>
+                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => {
+                  dispatch(StudFlag(false))
+                  dispatch(CompFlag(true))
+                  dispatch(AdminFlag(false))
+                  navigation.navigate('CompDetails')
+                }}>
                 Login
               </Button>
 

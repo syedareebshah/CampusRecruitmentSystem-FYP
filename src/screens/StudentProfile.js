@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Entypo/';
+import firestore from '@react-native-firebase/firestore'
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import { useDispatch, useSelector } from 'react-redux'
+import { StudFlag, CompFlag } from '../redux/loginSlice'
 
 import {
     StyleSheet,
@@ -18,6 +23,14 @@ import {
 
 const StudentProfile = ({ navigation }) => {
     const [filePath, setFilePath] = useState();
+
+    const flag = useSelector(CompFlag)
+    const delFlag = flag.payload.login.compLogin
+    console.log(delFlag);
+
+    const report = () => {
+
+    }
 
     const chooseFile = (type) => {
         let options = {
@@ -139,6 +152,17 @@ const StudentProfile = ({ navigation }) => {
                     <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
                         Update Profile
                     </Button>
+                    {
+                        delFlag ?
+                            <TouchableOpacity onPress={report}>
+                                <Icon style={{ marginTop: 15 }} name="flag" size={30} />
+                                <Text>Report</Text>
+                            </TouchableOpacity>
+                            :
+                            null
+
+                    }
+
 
                 </View>
             </View>

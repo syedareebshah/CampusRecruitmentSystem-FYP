@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Select, CheckIcon } from "native-base";
 import firestore from '@react-native-firebase/firestore';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+
 
 import {
     TextInput,
@@ -261,7 +263,7 @@ const StudentDetails = ({ navigation }) => {
                         <Button
                             disabled={!isValid}
                             style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => {
-                                handleSubmit()
+                                // handleSubmit()
                                 if (isok === "DD/MM/YY" || isok === undefined || isok === null) {
                                     // alert("please Enter Date")
                                     setPickerError(true);

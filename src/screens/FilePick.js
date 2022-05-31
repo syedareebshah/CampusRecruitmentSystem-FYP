@@ -36,13 +36,13 @@ const FilePick = ({ navigation }) => {
         // console.log("file",singleFile[0].uri);
         // await reference.putFile(singleFile[0].uri);
         // console.log("file uploaded");
-        try{
-            await reference.putFile(singleFile[0].uri);
-            console.log(".................");
-        }
-        catch(e){
-            console.log(e);
-        }
+        // try{
+        //     await reference.putFile(singleFile[0].uri);
+        //     console.log(".................");
+        // }
+        // catch(e){
+        //     console.log(e);
+        // }
 
     }
 
@@ -109,7 +109,7 @@ const FilePick = ({ navigation }) => {
 
                             else {
                                 handleUpload()
-                                // navigation.navigate('Home')
+                                navigation.navigate('Home')
                             }
                         }}
                     >

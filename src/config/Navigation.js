@@ -36,6 +36,7 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+
             <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
@@ -49,8 +50,8 @@ const Navigation = () => {
                         },
                     }}
                 />
-                <Stack.Screen name='TabNav' component={TabNav} />
                 
+
                 <Stack.Screen name="Home" component={Home}
                     options={({ navigation }) => ({
                         headerRight: () => (
@@ -66,9 +67,32 @@ const Navigation = () => {
 
                     })}
                 />
-
-                
-
+                <Stack.Screen name="StudentProfile" component={StudentProfile}
+                    options={{
+                        title: 'Student Profile',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+                <Stack.Screen name="StudentDetails" component={StudentDetails}
+                    options={{
+                        title: 'Student Details',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
                 <Stack.Screen name="PostJob" component={PostJob}
                     options={{
                         title: 'Post Job',
@@ -82,6 +106,28 @@ const Navigation = () => {
                         },
                     }}
                 />
+
+
+                <Stack.Screen name="JobApply" component={JobApply}
+                    options={{
+                        title: 'Job Details',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                    }}
+                />
+               
+                <Stack.Screen name='TabNav' component={TabNav} />
+
+
+
+
+
 
 
 
@@ -115,36 +161,12 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name="StudentProfile" component={StudentProfile}
-                    options={{
-                        title: 'Student Profile',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
 
 
 
 
-                <Stack.Screen name="JobApply" component={JobApply}
-                    options={{
-                        title: 'Job Details',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+
+
 
 
                 <Stack.Screen name="CompProfile" component={CompProfile}
@@ -232,19 +254,7 @@ const Navigation = () => {
 
 
 
-                <Stack.Screen name="StudentDetails" component={StudentDetails}
-                    options={{
-                        title: 'Student Details',
-                        headerStyle: {
-                            backgroundColor: '#6200ED',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                    }}
-                />
+
 
 
                 <Stack.Screen name="FilePick" component={FilePick}

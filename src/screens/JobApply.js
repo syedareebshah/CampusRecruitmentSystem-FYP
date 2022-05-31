@@ -1,9 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore'
 import Icon from 'react-native-vector-icons/Entypo/';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-paper';
 import { Select, CheckIcon } from "native-base";
+import { useDispatch, useSelector } from 'react-redux'
+import { StudFlag } from '../redux/loginSlice'
 
 import {
     View,
@@ -14,24 +16,43 @@ import {
 } from 'react-native';
 
 
-const JobApply = ({ route,navigation }) => {
-    const {id} = route.params
+const JobApply = ({ route, navigation }) => {
+    const flag = useSelector(StudFlag)
+    const delFlag = flag.payload.login.studLogin
+    console.log(delFlag, "....");
+    const { id } = route.params
     let [results, setResult] = useState([])
     console.log(results);
     useEffect(() => {
         getData()
     }, [])
 
-    const getData = () =>{
+    const getData = () => {
         firestore()
             .collection('Jobs')
             // Filter results
             .where('uId', '==', `${id}`)
             .get()
             .then(querySnapshot => {
-               let result= querySnapshot.docs[0]._data
-               setResult(result)     
+                let result = querySnapshot.docs[0]._data
+                setResult(result)
             });
+    }
+    const report = () => {
+        firestore()
+            .collection('ReportJob')
+            .add({
+                title: results.title,
+                workplace: results.Workplace,
+                jobType: results.jobType,
+            })
+            .then(() => {
+                alert("Reported to Admin")
+            });
+    }
+    const applyJob = () => {
+
+
     }
     return (
         <ScrollView>
@@ -42,8 +63,8 @@ const JobApply = ({ route,navigation }) => {
                 <View>
                     <View style={styles.container}>
                         <Icon style={styles.icons} name="location-pin" size={30} />
-                        <TouchableOpacity onPress={() =>navigation.navigate('PostJob')}>
-                        <Text style={{ marginTop: 7 }}>Bellatrix Technologies</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('PostJob')}>
+                            <Text style={{ marginTop: 7 }}>Bellatrix Technologies</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.container}>
@@ -65,12 +86,19 @@ const JobApply = ({ route,navigation }) => {
                         style={{ marginTop: 20, padding: 10 }} mode="contained" >
                         Apply
                     </Button>
-                   
+
                 </View>
-                <TouchableOpacity style={styles.container}>
-                    <Icon style={styles.icons} name="flag" size={30} />
-                    <Text style={{ marginTop: 7,textDecorationLine:'underline' }}>Report</Text>
-                </TouchableOpacity>
+                {
+                    delFlag ?
+                        <TouchableOpacity onPress={report} style={styles.container}>
+                            <Icon style={styles.icons} name="flag" size={30} />
+                            <Text style={{ marginTop: 7, textDecorationLine: 'underline' }}>Report</Text>
+                        </TouchableOpacity>
+                        :
+                        null
+
+                }
+
 
 
             </View>
@@ -126,8 +154,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignSelf:'center',
-        marginTop:5
+        marginTop: 5
     },
     icons: {
         color: 'brown'

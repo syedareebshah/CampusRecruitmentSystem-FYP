@@ -35,6 +35,7 @@ const PostJob = ({ navigation }) => {
                     .collection('Jobs')
                     .add({
                         title: values.Title,
+                        desc: values.Description,
                         uId: uId,
                         jobType: jType,
                         Workplace:Workplace

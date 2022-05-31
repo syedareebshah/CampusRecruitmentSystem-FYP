@@ -195,7 +195,7 @@ const CompDetails = ({ navigation }) => {
                                     alert("Fill all the details")
                                 }
                                 else{
-                                handleSubmit()
+                                // handleSubmit()
                                 navigation.navigate('CompHome')
                                 }
                             }}>
