@@ -1,8 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Entypo/';
-import firestore from '@react-native-firebase/firestore'
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore'
 import { useDispatch, useSelector } from 'react-redux'
 import { StudFlag, CompFlag } from '../redux/loginSlice'
 import auth from '@react-native-firebase/auth';

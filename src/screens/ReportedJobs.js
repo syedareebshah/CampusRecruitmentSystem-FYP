@@ -11,7 +11,7 @@ import {
 
 const ReportedJobs = ({ props }) => {
     const [jobs, setJobs] = useState([])
-    console.log(jobs);
+    console.log(jobs, "...");
     useEffect(() => {
         getJobs()
     }, [])
@@ -19,13 +19,36 @@ const ReportedJobs = ({ props }) => {
     const getJobs = async () => {
         let tempArray = []
         firestore()
-            .collection('Jobs')
+            .collection('ReportedJobs')
             .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(documentSnapshot => {
-                    tempArray.push(documentSnapshot.data())
+                    let id = documentSnapshot.ref._documentPath._parts[1]
+                    tempArray.push({ ...documentSnapshot.data(), ids: documentSnapshot.ref._documentPath._parts[1] })
                 });
                 setJobs(tempArray)
+            });
+    }
+    const delJob = (obj) => {
+        firestore()
+            .collection('Jobs')
+            .doc(`${obj.id}`)
+            .delete()
+            .then(() => {
+                delReport(obj)
+                console.log('User deleted!');
+            });
+        console.log(obj, "me");
+    }
+    
+    const delReport = (obj) => {
+        firestore()
+            .collection('ReportedJobs')
+            .doc(`${obj.ids}`)
+            .delete()
+            .then(() => {
+                console.log('User deleted!......');
+                getJobs()
             });
     }
 
@@ -34,16 +57,24 @@ const ReportedJobs = ({ props }) => {
             {
                 jobs.map((obj, i) => {
                     return (
-                        <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply',{id:obj.uId}) }} activeOpacity={0.8} style={styles.card}>
+                        <View key={i}>
+                            <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply', { id: obj.uId }) }} activeOpacity={0.8} style={styles.card}>
+                                <View>
+                                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                                </View>
+                                <View style={styles.info}>
+                                    <Text>{obj.title}</Text>
+                                    <Text>thuu{obj.Address}</Text>
+                                    <Text>Location(Remote)</Text>
+                                </View>
+
+                            </TouchableOpacity>
                             <View>
-                                <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                                <TouchableOpacity onPress={() => { delJob(obj) }}>
+                                    <Text>del</Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={styles.info}>
-                                <Text>Job Title</Text>
-                                <Text>Comp Name</Text>
-                                <Text>Location(Remote)</Text>
-                            </View>
-                        </TouchableOpacity>
+                        </View>
                     )
                 })
             }

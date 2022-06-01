@@ -9,11 +9,10 @@ import {
     TouchableOpacity
 } from "react-native"
 import auth from '@react-native-firebase/auth';
-import Icon from 'react-native-vector-icons/Entypo/';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import { isPlainObject } from 'immer/dist/internal';
 
-const Applications = (navigation) => {
+import Delicon from 'react-native-vector-icons/AntDesign';
+
+const ReportedStud = (navigation) => {
 
     const [displayJobs, setDisplay] = useState()
     console.log(displayJobs);
@@ -53,35 +52,40 @@ const Applications = (navigation) => {
                     let id = documentSnapshot.ref._documentPath._parts[1]
                     tempArray.push({ ...documentSnapshot.data(), ids: documentSnapshot.ref._documentPath._parts[1] })
                 });
+
                 setDisplay(tempArray)
-                // console.log(tempArray)
+                console.log(tempArray,"...")
 
             })
     }
-    const report = (obj) => {
-        console.log(obj);
+    const del = (obj) => {
+        // console.log(obj,"......y");
+        // console.log(obj.ids, "me");
+
         firestore()
-            .collection('ReportedStud')
-            .add({
-                name: obj.Name,
-                fname: obj.Fname,
-                gander: obj.Gander,
-                dob: obj.Dob,
-                level: obj.Level,
-                degree: obj.Degree,
-                cgpa: obj.Cgpa,
-                skill: obj.Skills,
-                contact: obj.Contact,
-                email: obj.Email,
-                delid:obj.ids
-
-            })
+            .collection('Students')
+            .doc(`${obj.stuId}`)
+            .delete()
             .then(() => {
-                console.log('User added!');
+                delReport(obj)
+                console.log('User deleted!');
             });
-
+    
     }
 
+    const delReport = (obj) => {
+        firestore()
+            .collection('Applicants')
+            .doc(`${obj.ids}`)
+            .delete()
+            .then(() => {
+                console.log('User deleted!......');
+            });
+    }
+
+    const delReportFromAdmin=()=>{
+        
+    }
 
 
 
@@ -107,9 +111,9 @@ const Applications = (navigation) => {
                                 <Text>Email: {obj.Email}</Text>
                             </View>
                             <View>
-                                <TouchableOpacity onPress={() => { report(obj) }}>
-                                    <Icon style={{ marginTop: 15 }} name="flag" size={30} />
-                                    <Text>Report</Text>
+                                <TouchableOpacity onPress={() => { del(obj) }}>
+                                    <Delicon style={{ marginTop: 15 }} name="delete" size={30} />
+                                    <Text>Delete</Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -159,4 +163,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Applications
+export default ReportedStud

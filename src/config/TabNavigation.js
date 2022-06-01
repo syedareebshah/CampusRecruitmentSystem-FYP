@@ -5,6 +5,7 @@ import Jobs from '../screens/Jobs'
 import ReportedJobs from '../screens/ReportedJobs';
 import ReportedStudents from '../screens/ReportedStudents';
 import ReportedComp from '../screens/ReportedComp';
+import ReportedStud from '../screens/ReportedStud';
 
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +17,7 @@ function TabNav() {
     }}>
       <Tab.Screen name="Job" component={Jobs}/>
       <Tab.Screen name="ReportedJobs" component={ReportedJobs}/>
-      <Tab.Screen name="ReportedStudents" component={ReportedStudents}/>
+      <Tab.Screen name="ReportedStudents" component={ReportedStud}/>
       <Tab.Screen name="ReportedComp" component={ReportedComp}/>
       
     </Tab.Navigator>

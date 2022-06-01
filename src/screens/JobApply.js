@@ -50,7 +50,6 @@ const JobApply = ({ route, navigation }) => {
 
 
     }, [user])
-    console.log(userid, "yhi to hy");
 
     const apply = () => {
         firestore()
@@ -66,7 +65,8 @@ const JobApply = ({ route, navigation }) => {
                 Level: mydata.level,
                 Email: mydata.email,
                 Skills: mydata.skill,
-                id: userObj.compId
+                id: userObj.compId,
+                stuId:mydata.studId
 
             })
             .then(() => {
@@ -81,8 +81,6 @@ const JobApply = ({ route, navigation }) => {
                 desc: userObj.desc,
                 jobType: userObj.jobType,
                 studId: userid
-
-
             })
             .then(() => {
                 console.log("done")
@@ -93,18 +91,18 @@ const JobApply = ({ route, navigation }) => {
 
 
     const getMyData = (userid) => {
-        console.log(userid, "from in");
         firestore()
             .collection('Students')
             .doc(`${userid}`)
             .get()
             .then(documentSnapshot => {
+                // console.log(documentSnapshot._ref._documentPath,"yh");
                 let res = documentSnapshot._data
                 setMydata(res);
+                console.log(res,"/");
             });
     }
 
-    console.log(mydata, ".....");
 
     // const getData = () => {
     //     firestore()
@@ -132,22 +130,25 @@ const JobApply = ({ route, navigation }) => {
     //             setResult(result)
     //         });
     // }
-    const report = () => {
-        firestore()
-            .collection('ReportJob')
-            .add({
-                title: results.title,
-                workplace: results.Workplace,
-                jobType: results.jobType,
-            })
-            .then(() => {
-                alert("Reported to Admin")
-            });
-    }
-    const applyJob = () => {
+    const report = (res) => {
+        console.log(res, "...yh");
+        console.log(mydata, "...yhhy");
+        // firestore()
+        //     .collection('ReportedJobs')
+        //     .add({
+        //         title: res.title,
+        //         desc: res.desc,
+        //         id:res.id,
+        //         Worlplace:res.Workplace,
+        //         jobType:res.jobType,
+        //         // toDel:res.studId
+        //     })
+        //     .then(() => {
+        //         console.log('User added!');
+        //     });
 
-
     }
+    
     return (
         <ScrollView>
             <View style={styles.main}>
@@ -185,7 +186,7 @@ const JobApply = ({ route, navigation }) => {
                 </View>
                 {
                     delFlag ?
-                        <TouchableOpacity onPress={report} style={styles.container}>
+                        <TouchableOpacity onPress={() => { report(obj) }} style={styles.container}>
                             <Icon style={styles.icons} name="flag" size={30} />
                             <Text style={{ marginTop: 7, textDecorationLine: 'underline' }}>Report</Text>
                         </TouchableOpacity>

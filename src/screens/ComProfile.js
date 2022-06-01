@@ -87,8 +87,7 @@ const CompProfile = ({ navigation }) => {
                                     <Text>{obj.field}</Text>
                                 </View>
 
-                                
-
+            
                                 <View style={styles.items}>
                                     <Text style={styles.label}>Email</Text>
                                     <Text>{obj.email}</Text>

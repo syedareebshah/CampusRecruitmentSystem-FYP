@@ -23,7 +23,8 @@ const Jobs = ({ props }) => {
             .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(documentSnapshot => {
-                    tempArray.push(documentSnapshot.data())
+                    let id = documentSnapshot.ref._documentPath._parts[1]
+                    tempArray.push({ ...documentSnapshot.data(), id: documentSnapshot.ref._documentPath._parts[1] })
                 });
                 setJobs(tempArray)
             });

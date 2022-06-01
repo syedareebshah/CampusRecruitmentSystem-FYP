@@ -49,7 +49,7 @@ const CompJobs = ({ props }) => {
                     tempArray.push(documentSnapshot.data())
                 });
                 setResult(tempArray)
-                // console.log(tempArray,"...");
+                console.log(tempArray,"...");
 
 
 
@@ -63,12 +63,13 @@ const CompJobs = ({ props }) => {
                 results &&
                 results.map((obj,i) => {
                     return (
-                        <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply') }} activeOpacity={0.8} style={styles.card}>
+                        <TouchableOpacity key={i} activeOpacity={0.8} style={styles.card}>
                             <View>
                                 <Image style={styles.logo} source={require('./../assets/logo.png')} />
                             </View>
                             <View style={styles.info}>
                                 <Text>{obj.title}</Text>
+                                <Text>{obj.desc}</Text>
                                 <Text>{obj.Workplace} {obj.jobType}</Text>
                                 <Text>{obj.Address}</Text>
                             </View>
