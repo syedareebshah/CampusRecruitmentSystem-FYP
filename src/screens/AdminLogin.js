@@ -69,9 +69,7 @@ const AdminLogin = ({ navigation }) => {
 
             </View>
 
-            <View style={styles.footer}>
-              <Text style={{ textAlign: 'center', textDecorationLine: 'underline' }} onPress={() => { navigation.navigate('AdminSinup') }}>Don't have an account? Sinup</Text>
-            </View>
+            
 
           </View>
 

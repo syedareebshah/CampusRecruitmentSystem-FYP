@@ -72,7 +72,7 @@ const Navigation = () => {
                         headerRight: () => (
                             <TouchableOpacity onPress={() => { navigation.navigate('StudentProfile'); }}><Icon style={{ color: 'white' }} name="account-circle" size={40} /></TouchableOpacity>
                         ),
-                        title: 'C R S',
+                        title: 'Student Dashboard',
                         headerStyle: {
                             backgroundColor: '#6200ED',
                             fontWeight: 'bold',
@@ -137,7 +137,19 @@ const Navigation = () => {
                     }}
                 />
 
-                <Stack.Screen name='TabNav' component={TabNav} />
+                <Stack.Screen name='TabNav' component={TabNav}
+                options={{
+                    title: 'Admin Dashboard',
+                    headerStyle: {
+                        backgroundColor: '#6200ED',
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        alignSelf: 'center'
+                    },
+                }}
+                />
 
 
 

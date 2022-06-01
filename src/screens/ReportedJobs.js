@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firestore from '@react-native-firebase/firestore';
+import Delicon from 'react-native-vector-icons/AntDesign';
+
 import {
     StyleSheet,
     Image,
@@ -40,7 +42,7 @@ const ReportedJobs = ({ props }) => {
             });
         console.log(obj, "me");
     }
-    
+
     const delReport = (obj) => {
         firestore()
             .collection('ReportedJobs')
@@ -57,21 +59,20 @@ const ReportedJobs = ({ props }) => {
             {
                 jobs.map((obj, i) => {
                     return (
-                        <View key={i}>
-                            <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply', { id: obj.uId }) }} activeOpacity={0.8} style={styles.card}>
+                        <View key={i} activeOpacity={0.8} style={styles.card}>
+                            <View style={{ flexDirection: 'row' }}>
                                 <View>
                                     <Image style={styles.logo} source={require('./../assets/logo.png')} />
                                 </View>
                                 <View style={styles.info}>
                                     <Text>{obj.title}</Text>
-                                    <Text>thuu{obj.Address}</Text>
-                                    <Text>Location(Remote)</Text>
+                                    <Text>{obj.desc}</Text>
+                                    <Text>{obj.Worlplace} {obj.jobType}</Text>
                                 </View>
-
-                            </TouchableOpacity>
+                            </View>
                             <View>
                                 <TouchableOpacity onPress={() => { delJob(obj) }}>
-                                    <Text>del</Text>
+                                    <Delicon style={{ marginTop: 15 }} name="delete" size={30} />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
         marginTop: 5,
         marginBottom: 5,
         marginRight: 10,

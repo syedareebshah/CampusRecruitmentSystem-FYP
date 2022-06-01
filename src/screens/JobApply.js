@@ -131,21 +131,20 @@ const JobApply = ({ route, navigation }) => {
     //         });
     // }
     const report = (res) => {
-        console.log(res, "...yh");
-        console.log(mydata, "...yhhy");
-        // firestore()
-        //     .collection('ReportedJobs')
-        //     .add({
-        //         title: res.title,
-        //         desc: res.desc,
-        //         id:res.id,
-        //         Worlplace:res.Workplace,
-        //         jobType:res.jobType,
-        //         // toDel:res.studId
-        //     })
-        //     .then(() => {
-        //         console.log('User added!');
-        //     });
+        
+        firestore()
+            .collection('ReportedJobs')
+            .add({
+                title: res.title,
+                desc: res.desc,
+                id:res.id,
+                Worlplace:res.Workplace,
+                jobType:res.jobType,
+                // toDel:res.studId
+            })
+            .then(() => {
+                console.log('User added!');
+            });
 
     }
     
