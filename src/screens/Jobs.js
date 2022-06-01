@@ -34,14 +34,13 @@ const Jobs = ({ props }) => {
             {
                 jobs.map((obj, i) => {
                     return (
-                        <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply',{id:obj.uId}) }} activeOpacity={0.8} style={styles.card}>
+                        <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply',{obj}) }} activeOpacity={0.8} style={styles.card}>
                             <View>
                                 <Image style={styles.logo} source={require('./../assets/logo.png')} />
                             </View>
                             <View style={styles.info}>
                                 <Text>{obj.title}</Text>
-                                <Text>Comp Name</Text>
-                                <Text>Location(Remote)</Text>
+                                <Text>{obj.Workplace}</Text>
                             </View>
                         </TouchableOpacity>
                     )

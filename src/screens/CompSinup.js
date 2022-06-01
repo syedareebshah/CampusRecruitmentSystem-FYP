@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux'
+import { AdminFlag, CompFlag, StudFlag } from '../redux/loginSlice';
+import auth from '@react-native-firebase/auth';
+
 
 import {
   StyleSheet,
@@ -13,6 +17,11 @@ import {
 
 
 const CompSinup = ({ navigation }) => {
+  const dispatch = useDispatch()
+
+
+
+  
 
   const ValidationSchema = yup.object().shape({
     email: yup.string().email().required("Enter a valid email address"),
@@ -27,7 +36,29 @@ const CompSinup = ({ navigation }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      onSubmit={values => console.log(values)}
+      onSubmit={(values) => {
+        auth()
+          .createUserWithEmailAndPassword(values.email, values.password)
+          .then(() => {
+            dispatch(StudFlag(false))
+            dispatch(CompFlag(true))
+            dispatch(AdminFlag(false))
+            navigation.navigate('CompDetails')
+            console.log('User account created & signed in!');
+          })
+          .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+              alert("That email address is already in use!")
+            }
+
+            if (error.code === 'auth/invalid-email') {
+              alert('That email address is invalid!')
+            }
+
+            console.error(error);
+          });
+
+      }}
       validationSchema={ValidationSchema}
     >
       {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
@@ -41,8 +72,8 @@ const CompSinup = ({ navigation }) => {
           <View style={styles.ScndView}>
             <View style={styles.header}>
 
-              
-            <Text>Create an account</Text>
+
+              <Text>Create an account</Text>
 
               <TextInput
                 label="Email"
@@ -66,7 +97,7 @@ const CompSinup = ({ navigation }) => {
               }
               <Button
                 disabled={!isValid}
-                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('CompDetails') }}>
+                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={handleSubmit}>
                 Login
               </Button>
 

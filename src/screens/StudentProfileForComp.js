@@ -1,11 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Entypo/';
 import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux'
 import { StudFlag, CompFlag } from '../redux/loginSlice'
-import auth from '@react-native-firebase/auth';
 
 import {
     StyleSheet,
@@ -22,15 +22,18 @@ import {
 } from 'react-native-image-picker';
 
 
-const StudentProfile = ({ navigation }) => {
+const StudentProfileForComp = (props) => {
     const [filePath, setFilePath] = useState();
+    // const { obj } = route.params
+    
+    console.log(obj,"...");
 
     const flag = useSelector(CompFlag)
     const delFlag = flag.payload.login.compLogin
     console.log(delFlag);
 
-    const [display,setDisplay] = useState()
-    console.log(display,"...");
+    const [display, setDisplay] = useState()
+    console.log(display, "...");
 
 
 
@@ -57,7 +60,7 @@ const StudentProfile = ({ navigation }) => {
         return subscriber; // unsubscribe on unmount
     }, [user]);
 
-    const getData =(userdata)=>{
+    const getData = (userdata) => {
         let tempArray = []
 
         firestore()
@@ -110,15 +113,10 @@ const StudentProfile = ({ navigation }) => {
 
     return (
         <ScrollView>
-            {
-                display &&
-                display.map((obj,i)=>{
-
-                    return(
-                        <View key={i} style={{ padding: 40 }}>
+            <View key={i} style={{ padding: 40 }}>
 
                 <View style={styles.firstView}>
-                    
+
 
                     {!filePath &&
                         <Image
@@ -189,9 +187,9 @@ const StudentProfile = ({ navigation }) => {
                     </View>
 
                     {/* <View style={styles.items}>
-                        <Text style={styles.label}>CV</Text>
-                        <Text>Resume.pdf</Text>
-                    </View> */}
+<Text style={styles.label}>CV</Text>
+<Text>Resume.pdf</Text>
+</View> */}
 
                     <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
                         Update Profile
@@ -210,10 +208,6 @@ const StudentProfile = ({ navigation }) => {
 
                 </View>
             </View>
-                    )
-
-                })
-            }
         </ScrollView>
     );
 };
@@ -264,4 +258,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default StudentProfile;
+export default StudentProfileForComp;

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import firestore from '@react-native-firebase/firestore';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
+
 import {
     TextInput,
     Button,
@@ -19,7 +23,6 @@ import {
     launchCamera,
     launchImageLibrary
 } from 'react-native-image-picker';
-import firestore from '@react-native-firebase/firestore';
 
 
 
@@ -27,6 +30,28 @@ const CompDetails = ({ navigation }) => {
 
     const [filePath, setFilePath] = useState();
     console.log(filePath);
+
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+        }
+
+        return subscriber; // unsubscribe on unmount
+    }, [user]);
 
 
     //img portion
@@ -78,7 +103,6 @@ const CompDetails = ({ navigation }) => {
         Contact: yup.number().required(),
     });
 
-    const uId = new Date().getTime().toString()
 
     return (
         <Formik
@@ -86,17 +110,20 @@ const CompDetails = ({ navigation }) => {
             onSubmit={(values) => {
                 firestore()
                     .collection('Company')
-                    .add({
+                    .doc(`${userid}`)
+                    .set({
                         name: values.Name,
                         email:values.email,
                         address: values.Address,
                         field: values.Field,
                         about: values.About,
                         contact: values.Contact,
-                        uId: uId
+                        id: userid,
+                        jobs:[]
                     })
                     .then(() => {
                         alert("Company Added")
+                        navigation.navigate('CompHome')
                     });
             }}
             validationSchema={ValidationSchema}
@@ -195,8 +222,7 @@ const CompDetails = ({ navigation }) => {
                                     alert("Fill all the details")
                                 }
                                 else{
-                                // handleSubmit()
-                                navigation.navigate('CompHome')
+                                handleSubmit()
                                 }
                             }}>
                             submit

@@ -8,22 +8,77 @@ import {
     ScrollView,
     TouchableOpacity
 } from "react-native"
+import auth from '@react-native-firebase/auth';
 
-const Applications = ({props}) => {
+const Applications = (props) => {
 
-    
+    const [displayJobs, setDisplay] = useState()
+    console.log(displayJobs, "///");
+
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+            getData(user.uid)
+
+        }
+
+        return subscriber; // unsubscribe on unmount
+    }, [user]);
+
+    const getData = (userdata) => {
+        let tempArray = []
+
+        firestore()
+            .collection('Applicants')
+            .where('id', '==', `${userdata}`)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    tempArray.push(documentSnapshot.data())
+                });
+                setDisplay(tempArray)
+                // console.log(tempArray)
+
+            })
+    }
+
+
+
 
     return (
         <ScrollView>
-            <TouchableOpacity onPress={() => { props.navigate('StudentProfile') }} activeOpacity={0.8} style={styles.card}>
-                <View>
-                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
-                </View>
-                <View style={styles.info}>
-                    <Text>Applicant Name</Text>
-                    <Text>Description</Text>
-                </View>
-            </TouchableOpacity>
+            {
+                displayJobs &&
+                displayJobs.map((obj, i) => {
+                    return (
+                        <TouchableOpacity key={i} onPress={() => { props.navigate('StudentProfileForComp') }} activeOpacity={0.8} style={styles.card}>
+                            <View>
+                                <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                            </View>
+                            <View style={styles.info}>
+                                <Text>{obj.Name}</Text>
+                                <Text>{obj.Level} {obj.Degree}</Text>
+                            </View>
+
+                        </TouchableOpacity>
+                    )
+
+                })
+            }
         </ScrollView>
     )
 }
@@ -33,7 +88,7 @@ const Applications = ({props}) => {
 const styles = StyleSheet.create({
     info: {
         marginLeft: 8,
-        marginTop:10
+        marginTop: 10
     },
     card: {
         borderRadius: 7,

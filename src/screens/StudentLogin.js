@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import {useDispatch} from 'react-redux'
-import { AdminFlag,CompFlag,StudFlag } from '../redux/loginSlice';
+import { useDispatch } from 'react-redux'
+import { AdminFlag, CompFlag, StudFlag } from '../redux/loginSlice';
+import auth from '@react-native-firebase/auth';
 
 import {
   StyleSheet,
@@ -17,6 +18,13 @@ import {
 const StudentLogin = ({ navigation }) => {
   const dispatch = useDispatch()
 
+  
+
+  
+
+  
+
+
   const ValidationSchema = yup.object().shape({
     email: yup.string().email().required("Enter a valid email address"),
     password: yup.string()
@@ -26,68 +34,88 @@ const StudentLogin = ({ navigation }) => {
   });
 
 
+  
 
-  return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      onSubmit={(values) => {
-        
-      }}
-      validationSchema={ValidationSchema}
-    >
-      {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
-        <ScrollView style={{ padding: 40 }}>
-
-          <View style={styles.firstView}>
-            <Image style={styles.logo} source={require('./../assets/logo.png')} />
-          </View>
-
-
-          <View style={styles.ScndView}>
-            <View style={styles.header}>
-
-              <TextInput
-                label="Email"
-                mode='outlined'
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-              />
-              {(errors.email && touched.email) &&
-                <Text style={styles.err}>{errors.email}</Text>
+    return (
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values) => {
+          auth()
+            .signInWithEmailAndPassword(values.email, values.password)
+            .then(() => {
+              dispatch(StudFlag(true))
+              dispatch(CompFlag(false))
+              dispatch(AdminFlag(false))
+              navigation.navigate('Home')
+              console.log('User account created & signed in!');
+            })
+            .catch(error => {
+              if (error.code === 'auth/email-already-in-use') {
+                alert("That email address is already in use!")
               }
-              <TextInput style={{ marginTop: 20 }}
-                label="Password"
-                mode='outlined'
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-              />
-              {(errors.password && touched.password) &&
-                <Text style={styles.err}>{errors.password}</Text>
+
+              if (error.code === 'auth/invalid-email') {
+                alert('That email address is invalid!')
               }
-              <Button
-                disabled={!isValid}
-                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { 
-                dispatch(StudFlag(true))
-                dispatch(CompFlag(false))
-                dispatch(AdminFlag(false))
-                navigation.navigate('StudentDetails') }}>
-                Login
-              </Button>
+
+              console.error(error);
+            });
+
+        }}
+        validationSchema={ValidationSchema}
+      >
+        {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
+          <ScrollView style={{ padding: 40 }}>
+
+            <View style={styles.firstView}>
+              <Image style={styles.logo} source={require('./../assets/logo.png')} />
+            </View>
+
+
+            <View style={styles.ScndView}>
+              <View style={styles.header}>
+
+                <TextInput
+                  label="Email"
+                  mode='outlined'
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                />
+                {(errors.email && touched.email) &&
+                  <Text style={styles.err}>{errors.email}</Text>
+                }
+                <TextInput style={{ marginTop: 20 }}
+                  label="Password"
+                  mode='outlined'
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                />
+                {(errors.password && touched.password) &&
+                  <Text style={styles.err}>{errors.password}</Text>
+                }
+                <Button
+                  disabled={!isValid}
+                  style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => {
+                    handleSubmit()
+                  }}>
+                  Login
+                </Button>
+
+              </View>
+
+              <View style={styles.footer}>
+                <Text style={{ textAlign: 'center', textDecorationLine: 'underline' }} onPress={() => { navigation.navigate('StudentSinup') }}>Don't have an account? Sinup</Text>
+              </View>
 
             </View>
 
-            <View style={styles.footer}>
-              <Text style={{ textAlign: 'center', textDecorationLine: 'underline' }} onPress={() => { navigation.navigate('StudentSinup') }}>Don't have an account? Sinup</Text>
-            </View>
-
-          </View>
-
-        </ScrollView>
-      )}
-    </Formik>
-  );
+          </ScrollView>
+        )}
+      </Formik>
+    );
+  
 };
 
 const styles = StyleSheet.create({

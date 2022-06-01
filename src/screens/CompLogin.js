@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux'
 import { AdminFlag, CompFlag, StudFlag } from '../redux/loginSlice';
+import auth from '@react-native-firebase/auth';
+
 
 import {
   StyleSheet,
@@ -30,7 +32,26 @@ const CompLogin = ({ navigation }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      onSubmit={values => console.log(values)}
+      onSubmit={(values) => {
+        auth()
+          .signInWithEmailAndPassword(values.email, values.password)
+          .then(() => {
+            navigation.navigate('CompHome')
+            console.log('User account created & signed in!');
+          })
+          .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+              alert("That email address is already in use!")
+            }
+
+            if (error.code === 'auth/invalid-email') {
+              alert('That email address is invalid!')
+            }
+
+            console.error(error);
+          });
+      }
+      }
       validationSchema={ValidationSchema}
     >
       {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
@@ -70,7 +91,7 @@ const CompLogin = ({ navigation }) => {
                   dispatch(StudFlag(false))
                   dispatch(CompFlag(true))
                   dispatch(AdminFlag(false))
-                  navigation.navigate('CompDetails')
+                  handleSubmit()
                 }}>
                 Login
               </Button>

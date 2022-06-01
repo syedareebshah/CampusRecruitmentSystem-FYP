@@ -5,6 +5,8 @@ import * as yup from 'yup';
 import { Select, CheckIcon } from "native-base";
 import firestore from '@react-native-firebase/firestore';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
+
 
 
 import {
@@ -34,6 +36,34 @@ const StudentDetails = ({ navigation }) => {
     console.log(checked);
     console.log(degree, level);
 
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+        }
+
+        return subscriber; // unsubscribe on unmount
+    }, [user]);
+
+
+
+
+
+
+
 
 
 
@@ -61,21 +91,6 @@ const StudentDetails = ({ navigation }) => {
 
     const DOB = JSON.stringify(isok)
 
-    function CustomValidation() {
-
-        if (!isok) {
-            console.log("empty")
-        }
-        else {
-            console.log("hah", isok);
-        }
-    }
-
-
-    // const tempFun = (values) => {
-    //     values.Dob = isok
-    //     values.gander = checked
-    // }
 
     return (
         <Formik
@@ -83,12 +98,12 @@ const StudentDetails = ({ navigation }) => {
             onSubmit={(values) => {
                 values.Dob = isok
                 values.gander = checked
-                const uId = new Date().getTime().toString()
 
 
                 firestore()
                     .collection('Students')
-                    .add({
+                    .doc(`${userid}`)
+                    .set({
                         name: values.name,
                         Dob: values.Dob,
                         fname: values.fname,
@@ -99,7 +114,7 @@ const StudentDetails = ({ navigation }) => {
                         degree: degree,
                         gander: values.gander,
                         level: level,
-                        uId: uId
+                        studId:userid
                     })
                     .then(() => {
                         alert("Student Added")
@@ -216,7 +231,7 @@ const StudentDetails = ({ navigation }) => {
                             multiline={true}
                             numberOfLines={5}
                             value={skills}
-                            onChangeText={(val)=>{setSkills(val)}}
+                            onChangeText={(val) => { setSkills(val) }}
 
 
 
@@ -263,9 +278,9 @@ const StudentDetails = ({ navigation }) => {
                         <Button
                             disabled={!isValid}
                             style={{ marginTop: 30, padding: 10 }} mode="contained" onPress={() => {
-                                // handleSubmit()
+                                handleSubmit()
                                 if (isok === "DD/MM/YY" || isok === undefined || isok === null) {
-                                    // alert("please Enter Date")
+                                    alert("please Enter Date")
                                     setPickerError(true);
                                     setTimeout(() => {
                                         setPickerError(false);

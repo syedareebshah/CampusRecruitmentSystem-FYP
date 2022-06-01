@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Select, CheckIcon } from "native-base";
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+
 
 import {
     View,
@@ -14,36 +16,100 @@ import {
 
 
 const PostJob = ({ navigation }) => {
-    const [checked, setChecked] = React.useState('first');
-    const [Workplace, setWorkplace] = React.useState();
-    const [jType, setjType] = React.useState();
+    const [checked, setChecked] = useState('first');
+    const [Workplace, setWorkplace] = useState();
+    const [jType, setjType] = useState();
+
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+    const [myJobs, setMyJobs] = useState([{}])
+    console.log(myJobs);
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+        }
+        getJobs()
+
+        return subscriber; // unsubscribe on unmount
+    }, [user]);
 
 
     const ValidationSchema = yup.object().shape({
         Description: yup.string().required(),
         Title: yup.string().required(),
+        Address: yup.string().required(),
     });
     const uId = new Date().getTime().toString()
+
+    const getJobs = async () => {
+        let tempArray = []
+        try{
+            firestore()
+            .collection('Company')
+            .doc(`${userid}`)
+            .get()
+            .then(querySnapshot => {
+                console.log(querySnapshot);
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+        
+
+
+
+
+
+
+
+                // setInterval(() => {
+                //     let result = querySnapshot._data
+                //     console.log(result);
+
+                //     console.log(result?.jobs);
+                // }, 1000)
+
+
+
+
+
+
+    }
 
 
 
     return (
         <Formik
-            initialValues={{ Description: '', Title: '' }}
-            onSubmit={(values) => { 
+            initialValues={{ Description: '', Title: '', Address:'' }}
+            onSubmit={(values) => {
                 firestore()
                     .collection('Jobs')
                     .add({
                         title: values.Title,
                         desc: values.Description,
-                        uId: uId,
+                        compId: userid,
                         jobType: jType,
-                        Workplace:Workplace
+                        Workplace: Workplace,
+                        Address: values.Address
                     })
                     .then(() => {
                         alert("Job Posted")
                     });
-             }}
+                
+            }}
             validationSchema={ValidationSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
@@ -58,6 +124,17 @@ const PostJob = ({ navigation }) => {
                         />
                         {(errors.Title && touched.Title) &&
                             <Text style={styles.err}>{errors.Title}</Text>
+                        }
+
+                    <TextInput
+                            label="Address"
+                            mode='outlined'
+                            onChangeText={handleChange('Address')}
+                            onBlur={handleBlur('Address')}
+                            value={values.Address}
+                        />
+                        {(errors.Address && touched.Address) &&
+                            <Text style={styles.err}>{errors.Address}</Text>
                         }
 
                         <TextInput

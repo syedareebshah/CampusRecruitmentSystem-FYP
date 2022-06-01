@@ -6,6 +6,7 @@ import { Button } from 'react-native-paper';
 import { Select, CheckIcon } from "native-base";
 import { useDispatch, useSelector } from 'react-redux'
 import { StudFlag } from '../redux/loginSlice'
+import auth from '@react-native-firebase/auth';
 
 import {
     View,
@@ -20,24 +21,117 @@ const JobApply = ({ route, navigation }) => {
     const flag = useSelector(StudFlag)
     const delFlag = flag.payload.login.studLogin
     console.log(delFlag, "....");
-    const { id } = route.params
-    let [results, setResult] = useState([])
-    console.log(results);
-    useEffect(() => {
-        getData()
-    }, [])
+    const { obj } = route.params
+    let [results, setResult] = useState()
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+    const [userObj, setUserObj] = useState(obj)
+    console.log(userObj, "........");
+    let [mydata, setMydata] = useState()
 
-    const getData = () => {
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
+    useEffect(() => {
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+            getMyData(user.uid)
+        }
+
+
+    }, [user])
+    console.log(userid, "yhi to hy");
+
+    const apply = () => {
         firestore()
-            .collection('Jobs')
-            // Filter results
-            .where('uId', '==', `${id}`)
+            .collection('Applicants')
+            .add({
+                Name: mydata.name,
+                Fname: mydata.fname,
+                Gander: mydata.gander,
+                Contact: mydata.gander,
+                Cgpa: mydata.cgps,
+                Degree: mydata.degree,
+                Dob: mydata.Dob,
+                Level: mydata.level,
+                Email: mydata.email,
+                Skills: mydata.skill,
+                id: userObj.compId
+
+            })
+            .then(() => {
+                console.log("done")
+            });
+
+        firestore()
+            .collection('AppliedJobs')
+            .add({
+                title: userObj.title,
+                Workplace: userObj.Workplace,
+                desc: userObj.desc,
+                jobType: userObj.jobType,
+                studId: userid
+
+
+            })
+            .then(() => {
+                console.log("done")
+            });
+
+    }
+
+
+
+    const getMyData = (userid) => {
+        console.log(userid, "from in");
+        firestore()
+            .collection('Students')
+            .doc(`${userid}`)
             .get()
-            .then(querySnapshot => {
-                let result = querySnapshot.docs[0]._data
-                setResult(result)
+            .then(documentSnapshot => {
+                let res = documentSnapshot._data
+                setMydata(res);
             });
     }
+
+    console.log(mydata, ".....");
+
+    // const getData = () => {
+    //     firestore()
+    //         .collection('Jobs')
+    //         .where('jobId', '==', `${id}`)
+    //         .get()
+    //         .then(querySnapshot => {
+    //             let result = querySnapshot.docs[0]._data
+    //             setResult(result)
+    //         });
+    // }
+    // console.log(results);
+    // useEffect(() => {
+    //     getData()
+    // }, [])
+
+    // const getData = () => {
+    //     firestore()
+    //         .collection('Jobs')
+    //         // Filter results
+    //         .where('uId', '==', `${id}`)
+    //         .get()
+    //         .then(querySnapshot => {
+    //             let result = querySnapshot.docs[0]._data
+    //             setResult(result)
+    //         });
+    // }
     const report = () => {
         firestore()
             .collection('ReportJob')
@@ -58,31 +152,32 @@ const JobApply = ({ route, navigation }) => {
         <ScrollView>
             <View style={styles.main}>
                 <View style={styles.headingBox}>
-                    <Text style={styles.heading}>{results.title}</Text>
+                    <Text style={styles.heading}>{obj.title}</Text>
                 </View>
                 <View>
                     <View style={styles.container}>
                         <Icon style={styles.icons} name="location-pin" size={30} />
                         <TouchableOpacity onPress={() => navigation.navigate('PostJob')}>
-                            <Text style={{ marginTop: 7 }}>Bellatrix Technologies</Text>
+                            <Text style={{ marginTop: 7 }}>{obj.Address}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.container}>
                         <Ionicon style={styles.icons} name="time-sharp" size={30} />
-                        <Text style={{ marginTop: 7 }}>Remote</Text>
+                        <Text style={{ marginTop: 7 }}>{obj.Workplace}</Text>
                     </View>
                     <View style={styles.container}>
                         <Icon style={styles.icons} name="briefcase" size={30} />
-                        <Text style={{ marginTop: 7 }}> Full Time</Text>
+                        <Text style={{ marginTop: 7 }}>{obj.jobType}</Text>
                     </View>
 
                 </View>
 
                 <View style={styles.desBox}>
-                    <Text>I would recomend to start by removing the initial values to a constant. Then you need to access the formik's error object. I have not d this using the new hook syntax, however, looking at the docs I would expect "formik.errors" to work (this is exposed in formProps.errors using render props). Finally the submit buttion disabled should be a check that either formik.values is equal to the initial values OR the errors object is not empty.</Text>
+                    <Text>{obj.desc}</Text>
                 </View>
                 <View style={styles.containerBtn}>
                     <Button
+                        onPress={apply}
                         style={{ marginTop: 20, padding: 10 }} mode="contained" >
                         Apply
                     </Button>

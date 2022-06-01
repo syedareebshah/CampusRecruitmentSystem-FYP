@@ -24,6 +24,7 @@ import CompHome from '../screens/CompHome';
 import Applications from '../screens/Applications';
 import CompJobs from '../screens/CompJobs';
 import TabNav from './TabNavigation';
+import StudentProfileForComp from '../screens/StudentProfileForComp';
 
 
 const Stack = createNativeStackNavigator();
@@ -37,7 +38,7 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
 
-            <Stack.Screen name="FirstScreen" component={FirstScreen}
+                <Stack.Screen name="FirstScreen" component={FirstScreen}
                     options={{
                         title: 'Campus Recruitment System',
                         headerStyle: {
@@ -50,7 +51,21 @@ const Navigation = () => {
                         },
                     }}
                 />
-                
+
+                <Stack.Screen name="StudentProfileForComp" component={StudentProfileForComp}
+                    options={{
+                        title: 'Campus Recruitment System',
+                        headerStyle: {
+                            backgroundColor: '#6200ED',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center',
+                        },
+                    }}
+                />
+
 
                 <Stack.Screen name="Home" component={Home}
                     options={({ navigation }) => ({
@@ -121,7 +136,7 @@ const Navigation = () => {
                         },
                     }}
                 />
-               
+
                 <Stack.Screen name='TabNav' component={TabNav} />
 
 

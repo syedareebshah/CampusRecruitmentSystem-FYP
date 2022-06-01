@@ -20,17 +20,7 @@ const CompHome = ({ navigation }) => {
 
     console.log(state)
 
-    const fetchJobs = async () => {
-        try {
-            let res = await fetch(`https://crs-fyp.herokuapp.com/getJob`);
-            let success = await res.json()
-            console.log(success)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    fetchJobs()
+    
 
 
     if (state == true) {

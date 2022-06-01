@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     Image,
@@ -7,21 +7,80 @@ import {
     ScrollView,
     TouchableOpacity
 } from "react-native"
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore'
 
-const AppliedJobs = ({props}) => {
+
+const AppliedJobs = ({ props }) => {
+
+    const [displayJobs, setDisplay] = useState()
+    console.log(displayJobs, "///");
+
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+            getData(user.uid)
+
+        }
+
+        return subscriber; // unsubscribe on unmount
+    }, [user]);
+
+    console.log(typeof (userid));
+
+
+
+    const getData = (userdata) => {
+        let tempArray = []
+
+        firestore()
+            .collection('AppliedJobs')
+            .where('studId', '==', `${userdata}`)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    tempArray.push(documentSnapshot.data())
+                });
+                setDisplay(tempArray)
+                // console.log(tempArray)
+
+            })
+    }
+
 
     return (
         <ScrollView>
-            <TouchableOpacity onPress={() => { props.navigate('JobApply') }} activeOpacity={0.8} style={styles.card}>
-                <View>
-                    <Image style={styles.logo} source={require('./../assets/logo.png')} />
-                </View>
-                <View style={styles.info}>
-                    <Text>Job Title</Text>
-                    <Text>Comp Name</Text>
-                    <Text>Location(Remote)</Text>
-                </View>
-            </TouchableOpacity>
+            {
+                displayJobs &&
+                displayJobs.map((obj, i) => {
+                    return (
+                        <TouchableOpacity key={i} activeOpacity={0.8} style={styles.card}>
+                            <View>
+                                <Image style={styles.logo} source={require('./../assets/logo.png')} />
+                            </View>
+                            <View style={styles.info}>
+                                <Text>{obj.title}</Text>
+                                <Text>{obj.Workplace} {obj.jobType}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )
+
+                })
+            }
         </ScrollView>
     )
 }

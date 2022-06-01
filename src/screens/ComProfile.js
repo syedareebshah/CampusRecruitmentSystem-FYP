@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth';
 
 import {
     StyleSheet,
@@ -14,55 +16,104 @@ import {
 
 const CompProfile = ({ navigation }) => {
 
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    const [userid, setUserid] = useState();
+    const [display, setDisplay] = useState()
+    console.log(display, "...");
+
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (!user) {
+            console.log("not found")
+        }
+        else {
+            setUserid(user.uid)
+            getData(user.uid)
+        }
+
+        return subscriber; // unsubscribe on unmount
+    }, [user]);
+
+    const getData = (userdata) => {
+        let tempArray = []
+
+        firestore()
+            .collection('Company')
+            .where('id', '==', `${userdata}`)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    tempArray.push(documentSnapshot.data())
+                });
+                setDisplay(tempArray)
+
+            })
+
+    }
+
+
     return (
         <ScrollView>
-            <View style={{ padding: 40 }}>
+            {
+                display &&
+                display.map((obj, i) => {
+                    return (
+                        <View key={i} style={{ padding: 40 }}>
 
-                <View style={styles.firstView}>
-                    <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
-                </View>
-                <View style={styles.ScndView}>
-                    <View style={styles.items}>
-                        <Text style={styles.label}>Name</Text>
-                        <Text>Netsol</Text>
-                    </View>
+                            <View style={styles.firstView}>
+                                <Image style={styles.logo} source={require('./../assets/profile.jpg')} />
+                            </View>
+                            <View style={styles.ScndView}>
+                                <View style={styles.items}>
+                                    <Text style={styles.label}>Name</Text>
+                                    <Text>{obj.name}</Text>
+                                </View>
 
-                    <View style={styles.items}>
-                        <Text style={styles.label}>Address</Text>
-                        <Text>NETSOL Avenue، Main Ghazi Rd, Khuda Buksh Colony, Lahore, Punjab 54792</Text>
-                    </View>
+                                <View style={styles.items}>
+                                    <Text style={styles.label}>Address</Text>
+                                    <Text>{obj.address}</Text>
+                                </View>
 
-                    <View style={styles.items}>
-                        <Text style={styles.label}>Field</Text>
-                        <Text>IT</Text>
-                    </View>
+                                <View style={styles.items}>
+                                    <Text style={styles.label}>Field</Text>
+                                    <Text>{obj.field}</Text>
+                                </View>
 
-                    <View style={styles.items}>
-                        <Text style={styles.label}>Ranking</Text>
-                        <Text>4.7</Text>
-                    </View>
+                                
 
-                    <View style={styles.items}>
-                        <Text style={styles.label}>Email</Text>
-                        <Text>netsole@gmail.com</Text>
-                    </View>
+                                <View style={styles.items}>
+                                    <Text style={styles.label}>Email</Text>
+                                    <Text>{obj.email}</Text>
+                                </View>
 
-                    <View style={styles.items}>
-                        <Text style={styles.label}>Contact</Text>
-                        <Text>042 123456</Text>
-                    </View>
+                                <View style={styles.items}>
+                                    <Text style={styles.label}>Contact</Text>
+                                    <Text>{obj.contact}</Text>
+                                </View>
 
-                    <Button mode="contained" onPress={() => navigation.navigate('PostJob')}>
-                        Post A Job
-                    </Button>
+                                <Button mode="contained" onPress={() => navigation.navigate('PostJob')}>
+                                    Post A Job
+                                </Button>
 
-                    <Button mode="contained" onPress={() => console.log('Pressed')}>
-                        Update Profile
-                    </Button>
+                                <Button mode="contained" onPress={() => console.log('Pressed')}>
+                                    Update Profile
+                                </Button>
 
-                </View>
+                            </View>
 
-            </View>
+                        </View>
+                    )
+
+                })
+            }
         </ScrollView>
     );
 };
