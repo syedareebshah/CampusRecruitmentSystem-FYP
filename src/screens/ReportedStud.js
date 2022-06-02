@@ -80,8 +80,7 @@ const ReportedStud = (navigation) => {
             .delete()
             .then(() => {
                 console.log('User deleted!......');
-                getData()
-
+                // getData()
             });
     }
 

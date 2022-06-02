@@ -3,6 +3,7 @@ import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+
 import {
   StyleSheet,
   Image,
@@ -27,7 +28,14 @@ const AdminLogin = ({ navigation }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      onSubmit={values => console.log(values)}
+      onSubmit={(values) => {
+        if (values.email == 'admin@gmail.com' && values.password == 'Pakistan1947$') {
+          navigation.navigate('TabNav')
+        }
+        else{
+          alert("wrong email/password")
+        }
+      }}
       validationSchema={ValidationSchema}
     >
       {({ handleChange, handleBlur, handleSubmit, errors, isValid, touched, values }) => (
@@ -65,13 +73,13 @@ const AdminLogin = ({ navigation }) => {
               }
               <Button
                 disabled={!isValid}
-                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => { navigation.navigate('TabNav') }}>
+                style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={handleSubmit}>
                 Login
               </Button>
 
             </View>
 
-            
+
 
           </View>
 
