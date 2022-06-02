@@ -55,7 +55,7 @@ const CompSinup = ({ navigation }) => {
               alert('That email address is invalid!')
             }
 
-            console.error(error);
+            alert("Account Already Exists")
           });
 
       }}

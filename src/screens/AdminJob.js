@@ -8,6 +8,8 @@ import {
     ScrollView,
     TouchableOpacity
 } from "react-native"
+import { ActivityIndicator } from "react-native-paper";
+
 
 const AdminJob = ({ props }) => {
     const [jobs, setJobs] = useState([])
@@ -28,6 +30,16 @@ const AdminJob = ({ props }) => {
                 });
                 setJobs(tempArray)
             });
+    }
+
+    if (jobs.length == 0) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator />
+                <Text>May be you have jobs yet</Text>
+            </View>
+
+        )
     }
 
     return (
@@ -84,6 +96,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 65,
         width: 65,
+    },
+    loading:{
+        alignSelf:'center',
+        marginTop:20,
     }
 })
 

@@ -3,6 +3,7 @@ import { Button } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth';
 
+
 import {
     StyleSheet,
     Image,
@@ -87,7 +88,7 @@ const CompProfile = ({ navigation }) => {
                                     <Text>{obj.field}</Text>
                                 </View>
 
-            
+
                                 <View style={styles.items}>
                                     <Text style={styles.label}>Email</Text>
                                     <Text>{obj.email}</Text>
@@ -102,8 +103,13 @@ const CompProfile = ({ navigation }) => {
                                     Post A Job
                                 </Button>
 
-                                <Button mode="contained" onPress={() => console.log('Pressed')}>
-                                    Update Profile
+                                <Button style={{marginTop:20}} mode="contained" onPress={() => {
+                                    auth()
+                                        .signOut()
+                                        .then(() => console.log('User signed out!'));
+                                    navigation.navigate('FirstScreen')
+                                }}>
+                                    Logout
                                 </Button>
 
                             </View>

@@ -137,7 +137,7 @@ const StudentProfile = ({ navigation }) => {
                         activeOpacity={0.5}
                         style={styles.buttonStyle}
                         onPress={() => chooseFile('photo')}>
-                        <Text style={styles.textStyle}>Upload/Change Picture</Text>
+                        {/* <Text style={styles.textStyle}>Upload/Change Picture</Text> */}
                     </TouchableOpacity>
 
 
@@ -193,19 +193,10 @@ const StudentProfile = ({ navigation }) => {
                         <Text>Resume.pdf</Text>
                     </View> */}
 
-                    <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => console.log('Pressed')}>
-                        Update Profile
+                    <Button style={{ marginTop: 20, padding: 10 }} mode="contained" onPress={() => navigation.navigate('FirstScreen')}>
+                        logout
                     </Button>
-                    {
-                        delFlag ?
-                            <TouchableOpacity onPress={report}>
-                                <Icon style={{ marginTop: 15 }} name="flag" size={30} />
-                                <Text>Report</Text>
-                            </TouchableOpacity>
-                            :
-                            null
-
-                    }
+                    
 
 
                 </View>

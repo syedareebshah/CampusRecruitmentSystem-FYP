@@ -12,10 +12,12 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Entypo/';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { isPlainObject } from 'immer/dist/internal';
+import { ActivityIndicator } from "react-native-paper";
+
 
 const Applications = (navigation) => {
 
-    const [displayJobs, setDisplay] = useState()
+    const [displayJobs, setDisplay] = useState([])
     console.log(displayJobs);
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
@@ -80,6 +82,16 @@ const Applications = (navigation) => {
                 alert("Reported to Admin");
             });
 
+    }
+
+    if (displayJobs.length == 0) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator />
+                <Text>May be you have no Applicants yet</Text>
+            </View>
+
+        )
     }
 
 
@@ -156,6 +168,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 65,
         width: 65,
+    },
+    loading:{
+        alignSelf:'center',
+        marginTop:20,
     }
 })
 

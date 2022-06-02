@@ -8,6 +8,7 @@ import {
     ScrollView,
     TouchableOpacity
 } from "react-native"
+import { ActivityIndicator } from 'react-native-paper'
 
 const ReportedStudents = ({ props }) => {
     const [jobs, setJobs] = useState([])
@@ -28,13 +29,16 @@ const ReportedStudents = ({ props }) => {
                 setJobs(tempArray)
             });
     }
+    console.log(jobs.length,"yhhh");
+
+    
 
     return (
         <ScrollView>
             {
                 jobs.map((obj, i) => {
                     return (
-                        <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply',{id:obj.uId}) }} activeOpacity={0.8} style={styles.card}>
+                        <TouchableOpacity key={i} onPress={() => { props.navigate('JobApply', { id: obj.uId }) }} activeOpacity={0.8} style={styles.card}>
                             <View>
                                 <Image style={styles.logo} source={require('./../assets/logo.png')} />
                             </View>

@@ -6,7 +6,8 @@ import {
     View,
     Text,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from "react-native"
 import auth from '@react-native-firebase/auth';
 
@@ -14,7 +15,7 @@ import Delicon from 'react-native-vector-icons/AntDesign';
 
 const ReportedStud = (navigation) => {
 
-    const [displayJobs, setDisplay] = useState()
+    const [displayJobs, setDisplay] = useState([])
     console.log(displayJobs);
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
@@ -84,8 +85,15 @@ const ReportedStud = (navigation) => {
             });
     }
 
-    const delReportFromAdmin=()=>{
-        
+    console.log("///////////");
+    if (displayJobs.length ==0) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator />
+                <Text>May be you have no reported Students yet</Text>
+            </View>
+
+        )
     }
 
 
@@ -161,6 +169,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 65,
         width: 65,
+    },
+    loading:{
+        alignSelf:'center',
+        marginTop:20,
     }
 })
 

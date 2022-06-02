@@ -24,7 +24,7 @@ import {
 import FilePick from './FilePick';
 
 const StudentDetails = ({ navigation }) => {
-    const [degrees, setDegrees] = useState(["Computer Science", "Physics"])
+    const [degrees, setDegrees] = useState(["Computer Science", "Physics","Software Engineering","Information Technology"])
     const [checked, setChecked] = useState('Male');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     let [level, setlevel] = useState("");

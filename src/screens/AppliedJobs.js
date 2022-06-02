@@ -9,11 +9,12 @@ import {
 } from "react-native"
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
+import { ActivityIndicator } from "react-native-paper";
 
 
 const AppliedJobs = ({ props }) => {
 
-    const [displayJobs, setDisplay] = useState()
+    const [displayJobs, setDisplay] = useState([])
     console.log(displayJobs, "///");
 
     const [initializing, setInitializing] = useState(true);
@@ -59,6 +60,16 @@ const AppliedJobs = ({ props }) => {
                 // console.log(tempArray)
 
             })
+    }
+
+    if (displayJobs.length == 0) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator />
+                <Text>May be you have not applied any job yet</Text>
+            </View>
+
+        )
     }
 
 
@@ -118,6 +129,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 65,
         width: 65,
+    },
+    loading:{
+        alignSelf:'center',
+        marginTop:20,
     }
 })
 

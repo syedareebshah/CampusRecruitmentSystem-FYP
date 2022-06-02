@@ -9,6 +9,8 @@ import {
     ScrollView,
     TouchableOpacity
 } from "react-native"
+import { ActivityIndicator } from "react-native-paper";
+
 
 const CompJobs = ({ props }) => {
 
@@ -55,6 +57,17 @@ const CompJobs = ({ props }) => {
 
             });
     }
+
+    if (results.length == 0) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator />
+                <Text>May be you have not posted any yet</Text>
+            </View>
+
+        )
+    }
+
 
 
     return (
@@ -114,6 +127,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 65,
         width: 65,
+    },
+    loading:{
+        alignSelf:'center',
+        marginTop:20,
     }
 })
 
