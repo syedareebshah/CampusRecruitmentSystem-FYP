@@ -77,7 +77,7 @@ const Applications = (navigation) => {
 
             })
             .then(() => {
-                console.log('User added!');
+                alert("Reported to Admin");
             });
 
     }

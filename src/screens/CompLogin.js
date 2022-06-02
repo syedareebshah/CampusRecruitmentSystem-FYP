@@ -48,7 +48,7 @@ const CompLogin = ({ navigation }) => {
               alert('That email address is invalid!')
             }
 
-            console.error(error);
+            alert("user does not exist")
           });
       }
       }
@@ -81,6 +81,8 @@ const CompLogin = ({ navigation }) => {
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
+                secureTextEntry={true}
+
               />
               {(errors.password && touched.password) &&
                 <Text style={styles.err}>{errors.password}</Text>

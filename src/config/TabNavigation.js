@@ -6,9 +6,10 @@ import ReportedJobs from '../screens/ReportedJobs';
 import ReportedStudents from '../screens/ReportedStudents';
 import ReportedComp from '../screens/ReportedComp';
 import ReportedStud from '../screens/ReportedStud';
-import ReportedJobIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Manicon from 'react-native-vector-icons/MaterialCommunityIcons'
 import BriefCase from 'react-native-vector-icons/Entypo'
 import FlagIcon from 'react-native-vector-icons/Entypo'
+import AdminJob from '../screens/AdminJob';
 
 
 const Tab = createBottomTabNavigator();
@@ -26,7 +27,7 @@ function TabNav() {
       tabBarInactiveTintColor: 'white',
 
     }}>
-      <Tab.Screen name="Jobs" component={Jobs}
+      <Tab.Screen name="Jobs" component={AdminJob}
         options={{
           headerBackground: 'blue',
           tabBarIcon: ({ color, size }) => {
@@ -56,7 +57,7 @@ function TabNav() {
           tabBarIcon: ({ color, size }) => {
             return (
               <View>
-                <FlagIcon name="flag" color={color} size={size} />
+                <Manicon name="human-child" color={color} size={size} />
               </View>
             )
           }

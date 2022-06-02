@@ -83,7 +83,7 @@ const JobApply = ({ route, navigation }) => {
                 studId: userid
             })
             .then(() => {
-                console.log("done")
+                alert("Applied Successfully")
             });
 
     }
@@ -143,7 +143,7 @@ const JobApply = ({ route, navigation }) => {
                 // toDel:res.studId
             })
             .then(() => {
-                console.log('User added!');
+                alert("Reported to Admin");
             });
 
     }

@@ -57,6 +57,8 @@ const AdminLogin = ({ navigation }) => {
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
+                secureTextEntry={true}
+
               />
               {(errors.password && touched.password) &&
                 <Text style={styles.err}>{errors.password}</Text>
