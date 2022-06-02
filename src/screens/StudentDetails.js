@@ -291,7 +291,7 @@ const StudentDetails = ({ navigation }) => {
                                 }
 
                                 else {
-                                    navigation.navigate('Resume')
+                                    navigation.navigate('Home')
                                 }
                             }
                             }>
